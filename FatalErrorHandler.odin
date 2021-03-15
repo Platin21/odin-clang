@@ -1,6 +1,9 @@
 package clang
 
-/*===-- clang-c/FatalErrorHandler.h - Fatal Error Handling --------*- C -*-===*\
+@force foreign import libclang "libclang"
+import "core:c"
+
+/*===-- FatalErrorHandler.odin - Fatal Error Handling ---------------------===*\
 |*                                                                            *|
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
@@ -8,9 +11,6 @@ package clang
 |* SPDX-License-Identifier: Apache-2.0 WITH LLVM-exception                    *|
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
-
-@force foreign import libclang "libclang"
-import "core:c"
 
 @(default_calling_convention="c")
 foreign libclang {

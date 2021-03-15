@@ -1,7 +1,11 @@
 package clang;
 
-/*===-- clang-c/Index.h - Indexing Public C Interface -------------*- C -*-===*\
-|*                                                                            *|
+import "core:time"
+import "core:c"
+
+@force foreign import libclang "libclang"
+
+/*===-- Index.odin ------------------------------------------------------*-===*\
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
 |* See https://llvm.org/LICENSE.txt for license information.                  *|
@@ -9,16 +13,9 @@ package clang;
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
-|* This header provides a public interface to a Clang library for extracting  *|
-|* high-level symbol information from source files without exposing the full  *|
-|* Clang C++ API.                                                             *|
+|* This header provides a public interface to a Clang library for extracting  *|                                                          *|
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
-
-import "core:time"
-import "core:c"
-
-@force foreign import libclang "libclang"
 
 /**
  * The version constants for the libclang API.

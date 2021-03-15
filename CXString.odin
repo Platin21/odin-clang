@@ -1,6 +1,10 @@
 package clang
 
-/*===-- clang-c/CXString.h - C Index strings  --------------------*- C -*-===*\
+import "core:c"
+
+@force foreign import libclang "libclang"
+
+/*===-- CXString.odin - C Index strings -----------------------------------===*\
 |*                                                                            *|
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
@@ -9,13 +13,11 @@ package clang
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
-|* This header provides the interface to C Index strings.                     *|
+|* This odin file provides the interface to C Index strings.                  *|
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
 
-import "core:c"
 
-@force foreign import libclang "libclang"
 
 /**
  * \defgroup CINDEX_STRING String manipulation routines

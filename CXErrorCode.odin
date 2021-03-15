@@ -1,7 +1,8 @@
-package clang
+package clang;
 
-/*===-- clang-c/CXErrorCode.h - C Index Error Codes  --------------*- C -*-===*\
-|*                                                                            *|
+import "core:c"
+
+/*===-- CXErrorCode.odin - C-Index Error Codes  -------------------------*-===*\
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
 |* Exceptions.                                                                *|
 |* See https://llvm.org/LICENSE.txt for license information.                  *|
@@ -9,11 +10,11 @@ package clang
 |*                                                                            *|
 |*===----------------------------------------------------------------------===*|
 |*                                                                            *|
-|* This header provides the CXErrorCode enumerators.                          *|
+|* This file provides the CXErrorCode enumerators.                            *|
 |*                                                                            *|
 \*===----------------------------------------------------------------------===*/
 
-import "core:c"
+
 
 /**
  * Error codes returned by libclang routines.
