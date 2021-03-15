@@ -1,4 +1,4 @@
-package clang
+package clang;
 
 /*===-- clang-c/Index.h - Indexing Public C Interface -------------*- C -*-===*\
 |*                                                                            *|
