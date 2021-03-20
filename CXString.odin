@@ -1,8 +1,7 @@
 package clang
 
+foreign import libclang "libclang"
 import "core:c"
-
-@force foreign import libclang "libclang"
 
 /*===-- CXString.odin - C Index strings -----------------------------------===*\
 |*                                                                            *|
