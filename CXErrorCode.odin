@@ -1,5 +1,6 @@
 package clang;
 
+foreign import libclang "libclang"
 import "core:c"
 
 /*===-- CXErrorCode.odin - C-Index Error Codes  -------------------------*-===*\
