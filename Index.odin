@@ -1,9 +1,7 @@
 package clang;
 
-import "core:time"
+foreign import libclang "libclang"
 import "core:c"
-
-@force foreign import libclang "libclang"
 
 /*===-- Index.odin ------------------------------------------------------*-===*\
 |* Part of the LLVM Project, under the Apache License v2.0 with LLVM          *|
