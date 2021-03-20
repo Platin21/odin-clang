@@ -1,6 +1,6 @@
 package clang
 
-@force foreign import libclang "libclang"
+foreign import libclang "libclang"
 import "core:c"
 
 /*===-- FatalErrorHandler.odin - Fatal Error Handling ---------------------===*\
