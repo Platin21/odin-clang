@@ -151,7 +151,7 @@ CXCommentKind :: enum c.uint {
  * The most appropriate rendering mode for an inline command, chosen on
  * command semantics in Doxygen.
  */
-CXCommentInlineCommandRenderKind :: c.int {
+CXCommentInlineCommandRenderKind :: enum c.int {
   /**
    * Command argument should be rendered in a normal font.
    */
@@ -207,14 +207,14 @@ foreign libclang {
  * declaration), return the associated parsed comment as a
  * \c CXComment_FullComment AST node.
  */
-clang_Cursor_getParsedComment :: proc(C: CXCursor) -> CXComment;
+clang_Cursor_getParsedComment :: proc(C: CXCursor) -> CXComment ---; 
 
 /**
  * \param Comment AST node of any kind.
  *
  * \returns the type of the AST node.
  */
-clang_Comment_getKind :: proc(Comment: CXComment) -> CXCommentKind;
+clang_Comment_getKind :: proc(Comment: CXComment) -> CXCommentKind ---;
 
 /**
  * \param Comment AST node of any kind.
@@ -241,7 +241,7 @@ clang_Comment_getChild :: proc(Comment: CXComment, ChildIdx: c.uint) -> CXCommen
  *
  * \returns non-zero if \c Comment is whitespace.
  */
-clang_Comment_isWhitespace :: (Comment: CXComment) -> c.uint ---;
+clang_Comment_isWhitespace :: proc(Comment: CXComment) -> c.uint ---;
 
 /**
  * \returns non-zero if \c Comment is inline content and has a newline
@@ -357,7 +357,7 @@ clang_BlockCommandComment_getArgText :: proc(Comment: CXComment, ArgIdx: c.uint)
  *
  * \returns paragraph argument of the block command.
  */
-clang_BlockCommandComment_getParagraph :: (Comment: CXComment) -> CXComment ---;
+clang_BlockCommandComment_getParagraph :: proc(Comment: CXComment) -> CXComment ---;
 
 /**
  * \param Comment a \c CXComment_ParamCommand AST node.
@@ -413,7 +413,7 @@ clang_TParamCommandComment_getParamName :: proc(Comment: CXComment) -> CXString 
  * \c clang_TParamCommandComment_getIndex functions will return a meaningful
  * value.
  */
-clang_TParamCommandComment_isParamPositionValid :: proc(CXComment Comment) -> c.uint ---;
+clang_TParamCommandComment_isParamPositionValid :: proc(Comment: CXComment) -> c.uint ---;
 
 /**
  * \param Comment a \c CXComment_TParamCommand AST node.
@@ -505,7 +505,7 @@ clang_HTMLTagComment_getAsString :: proc(Comment: CXComment) -> CXString ---;
  *
  * \returns string containing an HTML fragment.
  */
-clang_FullComment_getAsHTML :: proc(CXComment Comment) -> CXString ---;
+clang_FullComment_getAsHTML :: proc(Comment: CXComment) -> CXString ---;
 
 /**
  * Convert a given full parsed comment to an XML document.
@@ -517,7 +517,7 @@ clang_FullComment_getAsHTML :: proc(CXComment Comment) -> CXString ---;
  *
  * \returns string containing an XML document.
  */
-clang_FullComment_getAsXML :: proc(CXComment Comment) -> CXString ---; 
+clang_FullComment_getAsXML :: proc(Comment: CXComment) -> CXString ---; 
 
 /**
  * @}

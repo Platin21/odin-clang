@@ -100,7 +100,7 @@ clang_VirtualFileOverlay_dispose :: proc(overlay: CXVirtualFileOverlay) ---;
  * \param options is reserved, always pass 0.
  */
  
-clang_ModuleMapDescriptor_create :: proc (options: c.uint) -> CXModuleMapDescriptor;
+clang_ModuleMapDescriptor_create :: proc (options: c.uint) -> CXModuleMapDescriptor ---;
 
 /**
  * Sets the framework module name that the module.map describes.

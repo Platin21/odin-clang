@@ -94,7 +94,7 @@ clang_CompilationDatabase_getAllCompileCommands :: proc (db: CXCompilationDataba
 /**
  * Free the given CompileCommands
  */
-clang_CompileCommands_dispose :: (cmd: CXCompileCommands) ---;
+clang_CompileCommands_dispose :: proc (cmd: CXCompileCommands) ---;
 
 /**
  * Get the number of CompileCommand we have for a file
