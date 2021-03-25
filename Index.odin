@@ -3891,7 +3891,7 @@ clang_parseTranslationUnit :: proc(
     CIdx: CXIndex , source_filename: cstring,
     command_line_args: ^cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
-    options: c.uint) -> CXTranslationUnit ---;
+    options: CXTranslationUnit_Flags) -> CXTranslationUnit ---;
 
 /**
  * Parse the given source file and the translation unit corresponding
