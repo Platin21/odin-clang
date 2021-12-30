@@ -144,7 +144,7 @@ CXCommentKind :: enum c.uint {
   /**
    * A full comment attached to a declaration, contains block content.
    */
-  CXComment_FullComment = 12
+  CXComment_FullComment = 12,
 };
 
 /**
@@ -176,7 +176,7 @@ CXCommentInlineCommandRenderKind :: enum c.int {
   /**
    * Command argument should not be rendered (since it only defines an anchor).
    */
-  CXCommentInlineCommandRenderKind_Anchor
+  CXCommentInlineCommandRenderKind_Anchor,
 };
 
 /**
@@ -196,7 +196,7 @@ CXCommentParamPassDirection :: enum c.int {
   /**
    * The parameter is an input and output parameter.
    */
-  CXCommentParamPassDirection_InOut
+  CXCommentParamPassDirection_InOut,
 };
 
 

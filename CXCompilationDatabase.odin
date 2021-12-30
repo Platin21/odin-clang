@@ -59,7 +59,7 @@ CXCompilationDatabase_Error :: enum c.int {
   /*
    * Database can not be loaded
    */
-  CXCompilationDatabase_CanNotLoadDatabase = 1
+  CXCompilationDatabase_CanNotLoadDatabase = 1,
 
 };
 

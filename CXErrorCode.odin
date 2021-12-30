@@ -51,5 +51,5 @@ CXErrorCode :: enum c.int {
   /**
    * An AST deserialization error has occurred.
    */
-  ASTReadError = 4
+  ASTReadError = 4,
 };

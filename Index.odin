@@ -183,7 +183,7 @@ CXGlobalOptFlags :: enum {
    * Used to indicate that all threads that libclang creates should use
    * background priority.
    */
-  ThreadBackgroundPriorityForAll = ThreadBackgroundPriorityForIndexing | ThreadBackgroundPriorityForEditing
+  ThreadBackgroundPriorityForAll = ThreadBackgroundPriorityForIndexing | ThreadBackgroundPriorityForEditing,
 
 };
 
@@ -210,7 +210,7 @@ CXAvailabilityKind :: enum c.int {
    * The entity is available, but not accessible; any use of it will be
    * an error.
    */
-  CXAvailability_NotAccessible
+  CXAvailability_NotAccessible,
 };
 
 /**
@@ -267,7 +267,7 @@ CXCursor_ExceptionSpecificationKind :: enum c.int {
   /**
    * The cursor has a __declspec(nothrow) exception specification.
    */
-  CXCursor_ExceptionSpecificationKind_NoThrow
+  CXCursor_ExceptionSpecificationKind_NoThrow,
 };
 
 /**
@@ -302,7 +302,7 @@ CXDiagnosticSeverity :: enum c.int {
    * that future parser recovery is unlikely to produce useful
    * results.
    */
-  Fatal = 4
+  Fatal = 4,
 };
 
 /**
@@ -331,7 +331,7 @@ CXLoadDiag_Error :: enum c.int {
    * Indicates that the serialized diagnostics file is invalid or
    * corrupt.
    */
-  CXLoadDiag_InvalidFile = 3
+  CXLoadDiag_InvalidFile = 3,
 };
 
 /**
@@ -399,7 +399,7 @@ CXDiagnosticDisplayOptions :: enum c.int {
    * This option corresponds to the clang flag
    * \c -fdiagnostics-show-category=name.
    */
-  CXDiagnostic_DisplayCategoryName = 0x20
+  CXDiagnostic_DisplayCategoryName = 0x20,
 };
 
 /**
@@ -555,7 +555,7 @@ CXTranslationUnit_Flags :: enum c.int {
   /**
    * Tells the preprocessor not to skip excluded conditional blocks.
    */
-  CXTranslationUnit_RetainExcludedConditionalBlocks = 0x8000
+  CXTranslationUnit_RetainExcludedConditionalBlocks = 0x8000,
 };
 
 /**
@@ -569,7 +569,7 @@ CXReparse_Flags: enum c.int {
   /**
    * Used to indicate that no special reparsing options are needed.
    */
-  CXReparse_None = 0x0
+  CXReparse_None = 0x0,
 };
 
 
@@ -596,7 +596,7 @@ CXTUResourceUsageKind :: enum c.int {
       CXTUResourceUsage_Preprocessor_HeaderSearch,
 
   CXTUResourceUsage_First = CXTUResourceUsage_AST,
-  CXTUResourceUsage_Last = CXTUResourceUsage_Preprocessor_HeaderSearch
+  CXTUResourceUsage_Last = CXTUResourceUsage_Preprocessor_HeaderSearch,
 };
 
 /**
@@ -631,7 +631,7 @@ CXSaveError :: enum c.int {
    * Indicates that the translation unit to be saved was somehow
    * invalid (e.g., NULL).
    */
-  CXSaveError_InvalidTU = 3
+  CXSaveError_InvalidTU = 3,
 };
 
 /**
@@ -1592,7 +1592,7 @@ CXCursorKind :: enum c.int {
   /**
    * A code completion overload candidate.
    */
-  CXCursor_OverloadCandidate = 700
+  CXCursor_OverloadCandidate = 700,
 };
 
 /**
@@ -1613,7 +1613,7 @@ CXLinkageKind :: enum c.int {
    * in C++ anonymous namespaces.*/
   CXLinkage_UniqueExternal,
   /** This is the linkage for entities with true, external linkage. */
-  CXLinkage_External
+  CXLinkage_External,
 };
 
 CXVisibilityKind :: enum c.int {
@@ -1626,7 +1626,7 @@ CXVisibilityKind :: enum c.int {
   /** Symbol seen by the linker but resolves to a symbol inside this object. */
   CXVisibility_Protected,
   /** Symbol seen by the linker and acts like a normal symbol. */
-  CXVisibility_Default
+  CXVisibility_Default,
 };
 
 /**
@@ -1640,7 +1640,7 @@ CXSaveTranslationUnit_Flags :: enum c.int {
   /**
    * Used to indicate that no special saving options are needed.
    */
-  CXSaveTranslationUnit_None = 0x0
+  CXSaveTranslationUnit_None = 0x0,
 };
 
 /**
@@ -1650,7 +1650,7 @@ CXLanguageKind :: enum c.int {
   CXLanguage_Invalid = 0,
   CXLanguage_C,
   CXLanguage_ObjC,
-  CXLanguage_CPlusPlus
+  CXLanguage_CPlusPlusm,
 };
 
 /**
@@ -1801,7 +1801,7 @@ CXTypeKind :: enum c.int {
   CXType_OCLIntelSubgroupAVCImeDualRefStreamin = 175,
 
   CXType_ExtVector = 176,
-  CXType_Atomic = 177
+  CXType_Atomic = 177,
 };
 
 /**
@@ -1829,7 +1829,7 @@ CXCallingConv :: enum c.int {
   CXCallingConv_AArch64VectorCall = 16,
 
   CXCallingConv_Invalid = 100,
-  CXCallingConv_Unexposed = 200
+  CXCallingConv_Unexposed = 200,
 };
 
 CXRefQualifierKind :: enum c.int {
@@ -1838,7 +1838,7 @@ CXRefQualifierKind :: enum c.int {
   /** An lvalue ref-qualifier was provided (\c &). */
   CXRefQualifier_LValue,
   /** An rvalue ref-qualifier was provided (\c &&). */
-  CXRefQualifier_RValue
+  CXRefQualifier_RValue,
 };
 
 /**
@@ -1853,7 +1853,7 @@ CX_StorageClass :: enum c.int {
   CX_SC_PrivateExtern,
   CX_SC_OpenCLWorkGroupLocal,
   CX_SC_Auto,
-  CX_SC_Register
+  CX_SC_Register,
 };
 
 /**
@@ -1864,7 +1864,7 @@ CX_CXXAccessSpecifier :: enum c.int {
   CX_CXXInvalidAccessSpecifier,
   CX_CXXPublic,
   CX_CXXProtected,
-  CX_CXXPrivate
+  CX_CXXPrivate,
 };
 
 /**
@@ -1888,7 +1888,7 @@ CXChildVisitResult :: enum c.int {
    * Recursively traverse the children of this cursor, using
    * the same visitor and client data.
    */
-  CXChildVisit_Recurse
+  CXChildVisit_Recurse,
 };
 
 /**
@@ -1923,7 +1923,7 @@ CXTypeLayoutError :: enum c.int {
   /**
    * The type is undeduced.
    */
-  CXTypeLayoutError_Undeduced = -6
+  CXTypeLayoutError_Undeduced = -6,
 };
 
 CXTypeNullabilityKind :: enum c.int {
@@ -1945,14 +1945,14 @@ CXTypeNullabilityKind :: enum c.int {
   /**
    * Nullability is not applicable to this type.
    */
-  CXTypeNullability_Invalid = 3
+  CXTypeNullability_Invalid = 3,
 };
 
 /**
  * Describe the "thread-local storage (TLS) kind" of the declaration
  * referred to by a cursor.
  */
-CXTLSKind :: enum c.int { CXTLS_None = 0, CXTLS_Dynamic, CXTLS_Static };
+CXTLSKind :: enum c.int { CXTLS_None = 0, CXTLS_Dynamic, CXTLS_Static, };
 
 /**
  * Properties for the printing policy.
@@ -1987,7 +1987,7 @@ CXPrintingPolicyProperty :: enum c.int {
   CXPrintingPolicy_SuppressImplicitBase,
   CXPrintingPolicy_FullyQualifiedName,
 
-  CXPrintingPolicy_LastProperty = CXPrintingPolicy_FullyQualifiedName
+  CXPrintingPolicy_LastProperty = CXPrintingPolicy_FullyQualifiedName,
 };
 
 /**
@@ -2017,7 +2017,7 @@ CXTokenKind :: enum c.int {
   /**
    * A comment.
    */
-  CXToken_Comment
+  CXToken_Comment,
 };
 
 CXNameRefFlags :: enum c.int {
@@ -2043,7 +2043,7 @@ CXNameRefFlags :: enum c.int {
    * return some_vector[1]; // C++
    * \endcode
    */
-  CXNameRange_WantSinglePiece = 0x4
+  CXNameRange_WantSinglePiece = 0x4,
 };
 
 /**
@@ -2057,7 +2057,7 @@ CXObjCDeclQualifierKind :: enum c.int {
   CXObjCDeclQualifier_Out = 0x4,
   CXObjCDeclQualifier_Bycopy = 0x8,
   CXObjCDeclQualifier_Byref = 0x10,
-  CXObjCDeclQualifier_Oneway = 0x20
+  CXObjCDeclQualifier_Oneway = 0x20,
 };
 
 
@@ -2078,7 +2078,7 @@ CXObjCPropertyAttrKind :: enum c.int {
   CXObjCPropertyAttr_weak = 0x200,
   CXObjCPropertyAttr_strong = 0x400,
   CXObjCPropertyAttr_unsafe_unretained = 0x800,
-  CXObjCPropertyAttr_class = 0x1000
+  CXObjCPropertyAttr_class = 0x1000,
 };
 
 
@@ -2099,7 +2099,7 @@ CXTemplateArgumentKind :: enum c.int {
   CXTemplateArgumentKind_Expression,
   CXTemplateArgumentKind_Pack,
   /* Indicates an error case, preventing the kind from being deduced. */
-  CXTemplateArgumentKind_Invalid
+  CXTemplateArgumentKind_Invalid,
 };
 
 /**
@@ -2270,7 +2270,7 @@ CXCompletionChunkKind :: enum c.int {
    * Vertical space ('\\n'), after which it is generally a good idea to
    * perform indentation.
    */
-  CXCompletionChunk_VerticalSpace
+  CXCompletionChunk_VerticalSpace,
 };
 
 /**
@@ -2310,7 +2310,7 @@ CXCodeComplete_Flags :: enum c.int {
    * Whether to include completions with small
    * fix-its, e.g. change '.' to '->' on member access, etc.
    */
-  CXCodeComplete_IncludeCompletionsWithFixIts = 0x10
+  CXCodeComplete_IncludeCompletionsWithFixIts = 0x10,
 };
 
 /**
@@ -2446,7 +2446,7 @@ CXCompletionContext :: enum c.int {
   /**
    * The current context is unknown, so set all contexts.
    */
-  CXCompletionContext_Unknown = ((1 << 23) - 1)
+  CXCompletionContext_Unknown = ((1 << 23) - 1),
 };
 
 CXEvalResultKind :: enum c.int {
@@ -2457,7 +2457,7 @@ CXEvalResultKind :: enum c.int {
   CXEval_CFStr = 5,
   CXEval_Other = 6,
 
-  CXEval_UnExposed = 0
+  CXEval_UnExposed = 0,
 
 };
 
@@ -2474,7 +2474,7 @@ CXResult :: enum c.int {
    * The function was terminated by a callback (e.g. it returned
    * CXVisit_Break)
    */
-  CXResult_VisitBreak = 2
+  CXResult_VisitBreak = 2,
 
 };
 
@@ -2492,14 +2492,14 @@ CXIdxEntityCXXTemplateKind :: enum c.int {
   CXIdxEntity_NonTemplate = 0,
   CXIdxEntity_Template = 1,
   CXIdxEntity_TemplatePartialSpecialization = 2,
-  CXIdxEntity_TemplateSpecialization = 3
+  CXIdxEntity_TemplateSpecialization = 3,
 };
 
 CXIdxAttrKind :: enum c.int {
   CXIdxAttr_Unexposed = 0,
   CXIdxAttr_IBAction = 1,
   CXIdxAttr_IBOutlet = 2,
-  CXIdxAttr_IBOutletCollection = 3
+  CXIdxAttr_IBOutletCollection = 3,
 };
 
 CXIdxEntityKind :: enum c.int {
@@ -2533,7 +2533,7 @@ CXIdxEntityKind :: enum c.int {
   CXIdxEntity_CXXDestructor = 23,
   CXIdxEntity_CXXConversionFunction = 24,
   CXIdxEntity_CXXTypeAlias = 25,
-  CXIdxEntity_CXXInterface = 26
+  CXIdxEntity_CXXInterface = 26,
 };
 
 CXIdxEntityLanguage :: enum c.int {
@@ -2541,7 +2541,7 @@ CXIdxEntityLanguage :: enum c.int {
   CXIdxEntityLang_C = 1,
   CXIdxEntityLang_ObjC = 2,
   CXIdxEntityLang_CXX = 3,
-  CXIdxEntityLang_Swift = 4
+  CXIdxEntityLang_Swift = 4,
 };
 
 CXIndexOptFlags :: enum c.int {
@@ -2579,7 +2579,7 @@ CXIndexOptFlags :: enum c.int {
    * indexing session associated with a \c CXIndexAction object.
    * Bodies in system headers are always skipped.
    */
-  CXIndexOpt_SkipParsedBodiesInSession = 0x10
+  CXIndexOpt_SkipParsedBodiesInSession = 0x10,
 
 };
 
@@ -2598,7 +2598,7 @@ CXIdxEntityRefKind :: enum c.int{
    * An implicit reference, e.g. a reference of an Objective-C method
    * via the dot syntax.
    */
-  CXIdxEntityRef_Implicit = 2
+  CXIdxEntityRef_Implicit = 2,
 };
 
 /**
@@ -2617,17 +2617,17 @@ CXIdxEntityRefKind :: enum c.int{
   CXSymbolRole_Call = 1 << 5,
   CXSymbolRole_Dynamic = 1 << 6,
   CXSymbolRole_AddressOf = 1 << 7,
-  CXSymbolRole_Implicit = 1 << 8
+  CXSymbolRole_Implicit = 1 << 8,
 };
 
-CXIdxDeclInfoFlags :: enum c.int { CXIdxDeclFlag_Skipped = 0x1 }
+CXIdxDeclInfoFlags :: enum c.int { CXIdxDeclFlag_Skipped = 0x1, }
 
-CXVisitorResult :: enum c.int { CXVisit_Break, CXVisit_Continue };
+CXVisitorResult :: enum c.int { CXVisit_Break, CXVisit_Continue, };
 
 CXIdxObjCContainerKind :: enum c.int {
   CXIdxObjCContainer_ForwardRef = 0,
   CXIdxObjCContainer_Interface = 1,
-  CXIdxObjCContainer_Implementation = 2
+  CXIdxObjCContainer_Implementation = 2,
 };
 
 /**
@@ -2663,7 +2663,7 @@ CXIdxEntityRefInfo :: struct {
   /**
    * Sets of symbol roles of the reference.
    */
-  role: CXSymbolRole
+  role: CXSymbolRole,
 };
 
 /**
@@ -2709,30 +2709,30 @@ CXIdxEntityRefInfo :: struct {
   /**
    * Called to index a reference of an entity.
    */
-  indexEntityReference : #type proc(client_data: CXClientData, ENT: ^CXIdxEntityRefInfo)
+  indexEntityReference : #type proc(client_data: CXClientData, ENT: ^CXIdxEntityRefInfo),
 
 };
 
 CXCursorAndRangeVisitor :: struct {
   ctx: rawptr,
-  visit: #type proc(ctx: rawptr,c: CXCursor,scr: CXSourceRange) -> CXVisitorResult
+  visit: #type proc(ctx: rawptr,c: CXCursor,scr: CXSourceRange) -> CXVisitorResult,
 };
 
 CXIdxObjCContainerDeclInfo :: struct {
   declInfo: ^CXIdxDeclInfo,
-  kind: CXIdxObjCContainerKind
+  kind: CXIdxObjCContainerKind,
 };
 
 CXIdxBaseClassInfo :: struct {
   base: ^CXIdxEntityInfo,
   cursor: CXCursor,
-  loc: CXIdxLoc
+  loc: CXIdxLoc,
 };
 
 CXIdxObjCProtocolRefInfo :: struct {
   protocol: ^CXIdxEntityInfo,
   cursor: CXCursor,
-  loc: CXIdxLoc
+  loc: CXIdxLoc,
 };
 
 CXIdxObjCProtocolRefListInfo :: struct {
@@ -2743,7 +2743,7 @@ CXIdxObjCProtocolRefListInfo :: struct {
 CXIdxObjCInterfaceDeclInfo :: struct {
   containerInfo: ^CXIdxObjCContainerDeclInfo,
   superInfo: ^CXIdxBaseClassInfo,
-  protocols: ^CXIdxObjCProtocolRefListInfo
+  protocols: ^CXIdxObjCProtocolRefListInfo,
 };
 
 CXIdxObjCCategoryDeclInfo :: struct {
@@ -2751,19 +2751,19 @@ CXIdxObjCCategoryDeclInfo :: struct {
   objcClass: ^CXIdxEntityInfo,
   classCursor: CXCursor,
   classLoc: CXIdxLoc,
-  protocols: ^CXIdxObjCProtocolRefListInfo
+  protocols: ^CXIdxObjCProtocolRefListInfo,
 };
 
 CXIdxObjCPropertyDeclInfo :: struct {
   declInfo: ^CXIdxDeclInfo,
   getter: ^CXIdxEntityInfo,
-  setter: ^CXIdxEntityInfo
+  setter: ^CXIdxEntityInfo,
 };
 
 CXIdxCXXClassDeclInfo :: struct {
   declInfo: CXIdxDeclInfo,
   bases: ^^CXIdxBaseClassInfo,
-  numBases: c.uint
+  numBases: c.uint,
 };
 
 
@@ -2788,13 +2788,13 @@ CXIdxDeclInfo :: struct {
   isImplicit: c.int,
   attributes: ^^CXIdxAttrInfo,
   numAttributes: c.uint,
-  flags: c.uint
+  flags: c.uint,
 };
 
 CXIdxAttrInfo :: struct {
   kind: CXIdxAttrKind,
   cursor: CXCursor,
-  loc: CXIdxLoc
+  loc: CXIdxLoc,
 };
 
 CXIdxEntityInfo :: struct {
@@ -2805,18 +2805,18 @@ CXIdxEntityInfo :: struct {
   USR: cstring,
   cursor: CXCursor,
   attributes: ^^CXIdxAttrInfo,
-  numAttributes: c.uint
+  numAttributes: c.uint,
 };
 
 CXIdxContainerInfo :: struct {
-  cursor: CXCursor
+  cursor: CXCursor,
 };
 
 CXIdxIBOutletCollectionAttrInfo :: struct {
   attrInfo: ^CXIdxAttrInfo,
   objcClass: ^CXIdxEntityInfo,
   classCursor: CXCursor,
-  classLoc: CXIdxLoc
+  classLoc: CXIdxLoc,
 };
 
 /**
@@ -2824,7 +2824,7 @@ CXIdxIBOutletCollectionAttrInfo :: struct {
  */
 CXIdxLoc :: struct {
   ptr_data: [2]rawptr,
-  int_data: c.uint
+  int_data: c.uint,
 };
 
 /**
@@ -2849,7 +2849,7 @@ CXIdxIncludedFileInfo :: struct {
    * Non-zero if the directive was automatically turned into a module
    * import.
    */
-  isModuleImport: c.int
+  isModuleImport: c.int,
 };
 
 /**
@@ -2872,7 +2872,7 @@ CXIdxImportedASTFileInfo :: struct {
    * Non-zero if an inclusion directive was automatically turned into
    * a module import. Applicable only for modules.
    */
-  isImplicit: c.int
+  isImplicit: c.int,
 };
 
 /**
@@ -2892,7 +2892,7 @@ CXCodeCompleteResults :: struct {
    * The number of code-completion results stored in the
    * \c Results array.
    */
-  NumResults: c.uint
+  NumResults: c.uint,
 };
 
 /**
@@ -2915,7 +2915,7 @@ CXCompletionResult :: struct {
    * The code-completion string that describes how to insert this
    * code-completion result into the editing buffer.
    */
-  CompletionString: CXCompletionString
+  CompletionString: CXCompletionString,
 };
 
 
@@ -2925,7 +2925,7 @@ CXCompletionResult :: struct {
  */
 CXType :: struct {
   kind: CXTypeKind,
-  data: [2]rawptr
+  data: [2]rawptr,
 };
 
 /**
@@ -2971,7 +2971,7 @@ CXPlatformAvailability :: struct {
    * An optional message to provide to a user of this API, e.g., to
    * suggest replacement APIs.
    */
-  Message: CXString
+  Message: CXString,
 };
 
 /**
@@ -2995,7 +2995,7 @@ CXPlatformAvailability :: struct {
 CXCursor :: struct {
   kind: CXCursorKind,
   xdata: c.int,
-  data: [3]rawptr
+  data: [3]rawptr,
 };
 
 CXTUResourceUsageEntry :: struct {
@@ -3003,7 +3003,7 @@ CXTUResourceUsageEntry :: struct {
   kind: CXTUResourceUsageKind,
   /* Amount of resources used.
       The units will depend on the resource kind. */
-  amount: c.ulong
+  amount: c.ulong,
 };
 
 /**
@@ -3018,7 +3018,7 @@ CXTUResourceUsage :: struct {
 
   /* An array of key-value pairs, representing the breakdown of memory
             usage. */
-  entries: ^CXTUResourceUsageEntry
+  entries: ^CXTUResourceUsageEntry,
 
 };
 
@@ -3042,7 +3042,7 @@ CXVersion :: struct {
    * will be negative if no minor or subminor version number was provided,
    * e.g., in version '10' or '10.7'.
    */
-  Subminor: c.int
+  Subminor: c.int,
 };
 
 
@@ -3069,7 +3069,7 @@ CXUnsavedFile :: struct {
   /**
    * The length of the unsaved contents of this buffer.
    */
-  Length: c.ulong
+  Length: c.ulong,
 };
 
 /**
@@ -3077,7 +3077,7 @@ CXUnsavedFile :: struct {
  * across an indexing session.
  */
 CXFileUniqueID :: struct {
-  data: [3]u64
+  data: [3]u64,
 };
 
 /**
@@ -3089,7 +3089,7 @@ CXFileUniqueID :: struct {
  */
 CXSourceLocation :: struct {
   ptr_data: [2]rawptr,
-  int_data: c.uint
+  int_data: c.uint,
 }
 
 /**
@@ -3101,7 +3101,7 @@ CXSourceLocation :: struct {
 CXSourceRange :: struct {
   ptr_data: [2]rawptr,
   begin_int_data: c.uint,
-  end_int_data: c.uint
+  end_int_data: c.uint,
 }
 
 /**
@@ -3113,7 +3113,7 @@ CXSourceRangeList :: struct {
   /**
    * An array of \c CXSourceRanges.
    */
-  ranges: ^CXSourceRange
+  ranges: ^CXSourceRange,
 };
 
 /**
@@ -3889,7 +3889,7 @@ clang_defaultEditingTranslationUnitOptions :: proc() -> c.uint ---;
  */
 clang_parseTranslationUnit :: proc(
     CIdx: CXIndex , source_filename: cstring,
-    command_line_args: ^cstring, num_command_line_args: c.int,
+    command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
     options: CXTranslationUnit_Flags) -> CXTranslationUnit ---;
 
@@ -3941,7 +3941,7 @@ clang_parseTranslationUnit :: proc(
 
 clang_parseTranslationUnit2 :: proc(
     CIdx: CXIndex , source_filename: cstring,
-    command_line_args: ^cstring, num_command_line_args: c.int,
+    command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
     options: c.uint, out_TU: ^CXTranslationUnit) -> CXErrorCode ---; 
 
@@ -3952,7 +3952,7 @@ clang_parseTranslationUnit2 :: proc(
  */
 clang_parseTranslationUnit2FullArgv :: proc(
     CIdx: CXIndex , source_filename: cstring,
-    command_line_args: ^cstring, num_command_line_args: c.int,
+    command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
     options: c.uint, out_TU: ^CXTranslationUnit) -> CXErrorCode ---;
 
