@@ -40,23 +40,23 @@ import "core:c"
 
 CXStringSet :: []CXString
 
-@(default_calling_convention="c")
+@(default_calling_convention="c",  link_prefix="clang_")
 foreign libclang {
 
 /**
  * Retrieve the character data associated with the given string.
  */
-clang_getCString :: proc(str: CXString) -> cstring ---;
+getCString :: proc(str: CXString) -> cstring ---;
 
 /**
  * Free the given string.
  */
-clang_disposeString :: proc(str: CXString) ---;
+disposeString :: proc(str: CXString) ---;
 
 /**
  * Free the given string set.
  */
-clang_disposeStringSet :: proc(set: ^CXStringSet) ---;
+disposeStringSet :: proc(set: ^CXStringSet) ---;
 
 /**
  * @}
