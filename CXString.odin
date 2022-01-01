@@ -38,10 +38,7 @@ import "core:c"
   private_flags: c.uint,
 };
 
-CXStringSet :: struct {
-  Strings: ^CXString,
-  Count: c.uint,
-} ;
+CXStringSet :: []CXString
 
 @(default_calling_convention="c")
 foreign libclang {
