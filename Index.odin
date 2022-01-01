@@ -94,7 +94,7 @@ CXCursorSet :: distinct rawptr;
 
 /**
  * Opaque pointer representing a policy that controls pretty printing
- * for \c clang_getCursorPrettyPrinted.
+ * for \c getCursorPrettyPrinted.
  */
 CXPrintingPolicy :: distinct rawptr;
 
@@ -165,8 +165,8 @@ CXGlobalOptFlags :: enum {
    * Used to indicate that threads that libclang creates for indexing
    * purposes should use background priority.
    *
-   * Affects #clang_indexSourceFile, #clang_indexTranslationUnit,
-   * #clang_parseTranslationUnit, #clang_saveTranslationUnit.
+   * Affects #indexSourceFile, #indexTranslationUnit,
+   * #parseTranslationUnit, #saveTranslationUnit.
    */
   ThreadBackgroundPriorityForIndexing = 0x1,
 
@@ -174,8 +174,8 @@ CXGlobalOptFlags :: enum {
    * Used to indicate that threads that libclang creates for editing
    * purposes should use background priority.
    *
-   * Affects #clang_reparseTranslationUnit, #clang_codeCompleteAt,
-   * #clang_annotateTokens
+   * Affects #reparseTranslationUnit, #codeCompleteAt,
+   * #annotateTokens
    */
   ThreadBackgroundPriorityForEditing = 0x2,
 
@@ -307,7 +307,7 @@ CXDiagnosticSeverity :: enum c.int {
 
 /**
  * Describes the kind of error that occurred (if any) in a call to
- * \c clang_loadDiagnostics.
+ * \c loadDiagnostics.
  */
 CXLoadDiag_Error :: enum c.int {
   /**
@@ -338,7 +338,7 @@ CXLoadDiag_Error :: enum c.int {
  * Options to control the display of diagnostics.
  *
  * The values in this enum are meant to be combined to customize the
- * behavior of \c clang_formatDiagnostic().
+ * behavior of \c formatDiagnostic().
  */
 CXDiagnosticDisplayOptions :: enum c.int { 
   /**
@@ -452,7 +452,7 @@ CXTranslationUnit_Flags :: enum c.int {
    * initial includes at the top of the main file (what we refer to as
    * the "preamble" of the file). In subsequent parses, if the
    * preamble or the files in it have not changed, \c
-   * clang_reparseTranslationUnit() will re-use the implicit
+   * reparseTranslationUnit() will re-use the implicit
    * precompiled header to improve parsing performance.
    */
   CXTranslationUnit_PrecompiledPreamble = 0x04,
@@ -469,7 +469,7 @@ CXTranslationUnit_Flags :: enum c.int {
 
   /**
    * Used to indicate that the translation unit will be serialized with
-   * \c clang_saveTranslationUnit.
+   * \c saveTranslationUnit.
    *
    * This option is typically used when parsing a header with the intent of
    * producing a precompiled header.
@@ -545,8 +545,8 @@ CXTranslationUnit_Flags :: enum c.int {
   /**
    * Used to indicate that non-errors from included files should be ignored.
    *
-   * If set, clang_getDiagnosticSetFromTU() will not report e.g. warnings from
-   * included files anymore. This speeds up clang_getDiagnosticSetFromTU() for
+   * If set, getDiagnosticSetFromTU() will not report e.g. warnings from
+   * included files anymore. This speeds up getDiagnosticSetFromTU() for
    * the case where these warnings are not of interest, as for an IDE for
    * example, which typically shows only the diagnostics in the main file.
    */
@@ -601,7 +601,7 @@ CXTUResourceUsageKind :: enum c.int {
 
 /**
  * Describes the kind of error that occurred (if any) in a call to
- * \c clang_saveTranslationUnit().
+ * \c saveTranslationUnit().
  */
 CXSaveError :: enum c.int {
   /**
@@ -623,7 +623,7 @@ CXSaveError :: enum c.int {
    * to save the translation unit.
    *
    * Errors that prevent the translation unit from being saved can be
-   * extracted using \c clang_getNumDiagnostics() and \c clang_getDiagnostic().
+   * extracted using \c getNumDiagnostics() and \c getDiagnostic().
    */
   CXSaveError_TranslationErrors = 2,
 
@@ -817,8 +817,8 @@ CXCursorKind :: enum c.int {
    * argument-dependent lookup (e.g., the "swap" function at the end of the
    * example).
    *
-   * The functions \c clang_getNumOverloadedDecls() and
-   * \c clang_getOverloadedDecl() can be used to retrieve the definitions
+   * The functions \c getNumOverloadedDecls() and
+   * \c getOverloadedDecl() can be used to retrieve the definitions
    * referenced by this cursor.
    */
   CXCursor_OverloadedDeclRef = 49,
@@ -1872,7 +1872,7 @@ CX_CXXAccessSpecifier :: enum c.int {
  * cursor should proceed after visiting a particular child cursor.
  *
  * A value of this enumeration type should be returned by each
- * \c CXCursorVisitor to indicate how clang_visitChildren() proceed.
+ * \c CXCursorVisitor to indicate how visitChildren() proceed.
  */
 CXChildVisitResult :: enum c.int {
   /**
@@ -1892,9 +1892,9 @@ CXChildVisitResult :: enum c.int {
 };
 
 /**
- * List the possible error codes for \c clang_Type_getSizeOf,
- *   \c clang_Type_getAlignOf, \c clang_Type_getOffsetOf and
- *   \c clang_Cursor_getOffsetOf.
+ * List the possible error codes for \c Type_getSizeOf,
+ *   \c Type_getAlignOf, \c Type_getOffsetOf and
+ *   \c Cursor_getOffsetOf.
  *
  * A value of this enumeration type can be returned if the target type is not
  * a valid argument to sizeof, alignof or offsetof.
@@ -2116,7 +2116,7 @@ CXCompletionChunkKind :: enum c.int {
    *
    * The Optional chunk is the only kind of chunk that has a code-completion
    * string for its representation, which is accessible via
-   * \c clang_getCompletionChunkCompletionString(). The code-completion string
+   * \c getCompletionChunkCompletionString(). The code-completion string
    * describes an additional part of the template that is completely optional.
    * For example, optional chunks can be used to describe the placeholders for
    * arguments that match up with defaulted function parameters, e.g. given:
@@ -2274,11 +2274,11 @@ CXCompletionChunkKind :: enum c.int {
 };
 
 /**
- * Flags that can be passed to \c clang_codeCompleteAt() to
+ * Flags that can be passed to \c codeCompleteAt() to
  * modify its behavior.
  *
  * The enumerators in this enumeration can be bitwise-OR'd together to
- * provide multiple options to \c clang_codeCompleteAt().
+ * provide multiple options to \c codeCompleteAt().
  */
 CXCodeComplete_Flags :: enum c.int {
   /**
@@ -2667,8 +2667,8 @@ CXIdxEntityRefInfo :: struct {
 };
 
 /**
- * A group of callbacks used by #clang_indexSourceFile and
- * #clang_indexTranslationUnit.
+ * A group of callbacks used by #indexSourceFile and
+ * #indexTranslationUnit.
  */
  IndexerCallbacks :: struct {
   /**
@@ -2879,8 +2879,8 @@ CXIdxImportedASTFileInfo :: struct {
  * Contains the results of code-completion.
  *
  * This data structure contains the results of code completion, as
- * produced by \c clang_codeCompleteAt(). Its contents must be freed by
- * \c clang_disposeCodeCompleteResults.
+ * produced by \c codeCompleteAt(). Its contents must be freed by
+ * \c disposeCodeCompleteResults.
  */
 CXCodeCompleteResults :: struct {
   /**
@@ -2986,9 +2986,9 @@ CXPlatformAvailability :: struct {
  * cursor, and retrieving cursors for any child nodes of a particular cursor.
  *
  * Cursors can be produced in two specific ways.
- * clang_getTranslationUnitCursor() produces a cursor for a translation unit,
- * from which one can use clang_visitChildren() to explore the rest of the
- * translation unit. clang_getCursor() maps from a physical source location
+ * getTranslationUnitCursor() produces a cursor for a translation unit,
+ * from which one can use visitChildren() to explore the rest of the
+ * translation unit. getCursor() maps from a physical source location
  * to the entity that resides at that location, allowing one to map from the
  * source code into the AST.
  */
@@ -3084,7 +3084,7 @@ CXFileUniqueID :: struct {
  * Identifies a specific source location within a translation
  * unit.
  *
- * Use clang_getExpansionLocation() or clang_getSpellingLocation()
+ * Use getExpansionLocation() or getSpellingLocation()
  * to map a source location to a particular file, line, and column.
  */
 CXSourceLocation :: struct {
@@ -3095,7 +3095,7 @@ CXSourceLocation :: struct {
 /**
  * Identifies a half-open character range in the source code.
  *
- * Use clang_getRangeStart() and clang_getRangeEnd() to retrieve the
+ * Use getRangeStart() and getRangeEnd() to retrieve the
  * starting and end locations from a source range, respectively.
  */
 CXSourceRange :: struct {
@@ -3120,13 +3120,13 @@ CXSourceRangeList :: struct {
  * Visitor invoked for each cursor found by a traversal.
  *
  * This visitor function will be invoked for each cursor found by
- * clang_visitCursorChildren(). Its first argument is the cursor being
+ * visitCursorChildren(). Its first argument is the cursor being
  * visited, its second argument is the parent visitor for that cursor,
  * and its third argument is the client data provided to
- * clang_visitCursorChildren().
+ * visitCursorChildren().
  *
  * The visitor should return one of the \c CXChildVisitResult values
- * to direct clang_visitCursorChildren().
+ * to direct visitCursorChildren().
  */
 CXCursorVisitor :: #type proc (cursor: CXCursor, parent: CXCursor, client_data: CXClientData) -> CXChildVisitResult;
 
@@ -3134,20 +3134,20 @@ CXCursorVisitor :: #type proc (cursor: CXCursor, parent: CXCursor, client_data: 
  * Visitor invoked for each field found by a traversal.
  *
  * This visitor function will be invoked for each field found by
- * \c clang_Type_visitFields. Its first argument is the cursor being
+ * \c Type_visitFields. Its first argument is the cursor being
  * visited, its second argument is the client data provided to
- * \c clang_Type_visitFields.
+ * \c Type_visitFields.
  *
  * The visitor should return one of the \c CXVisitorResult values
- * to direct \c clang_Type_visitFields.
+ * to direct \c Type_visitFields.
  */
 CXFieldVisitor :: #type proc(C: CXCursor, client_data: CXClientData) -> CXVisitorResult; 
 
 /**
  * Visitor invoked for each file in a translation unit
- *        (used with clang_getInclusions()).
+ *        (used with getInclusions()).
  *
- * This visitor function will be invoked by clang_getInclusions() for each
+ * This visitor function will be invoked by getInclusions() for each
  * file included (either at the top-level or by \#include directives) within
  * a translation unit.  The first argument is the file being included, and
  * the second and third arguments provide the inclusion stack.  The
@@ -3160,7 +3160,7 @@ CXInclusionVisitor :: #type proc (included_file: CXFile,
                                   client_data: CXClientData);
 
 
-@(default_calling_convention="c")
+@(default_calling_convention="c", link_prefix="clang_")
 foreign libclang { 
 
 /**
@@ -3178,32 +3178,32 @@ foreign libclang {
  *
  * \code
  *   // excludeDeclsFromPCH = 1, displayDiagnostics=1
- *   Idx = clang_createIndex(1, 1);
+ *   Idx = createIndex(1, 1);
  *
  *   // IndexTest.pch was produced with the following command:
  *   // "clang -x c IndexTest.h -emit-ast -o IndexTest.pch"
- *   TU = clang_createTranslationUnit(Idx, "IndexTest.pch");
+ *   TU = createTranslationUnit(Idx, "IndexTest.pch");
  *
  *   // This will load all the symbols from 'IndexTest.pch'
- *   clang_visitChildren(clang_getTranslationUnitCursor(TU),
+ *   visitChildren(getTranslationUnitCursor(TU),
  *                       TranslationUnitVisitor, 0);
- *   clang_disposeTranslationUnit(TU);
+ *   disposeTranslationUnit(TU);
  *
  *   // This will load all the symbols from 'IndexTest.c', excluding symbols
  *   // from 'IndexTest.pch'.
  *   char *args[] = { "-Xclang", "-include-pch=IndexTest.pch" };
- *   TU = clang_createTranslationUnitFromSourceFile(Idx, "IndexTest.c", 2, args,
+ *   TU = createTranslationUnitFromSourceFile(Idx, "IndexTest.c", 2, args,
  *                                                  0, 0);
- *   clang_visitChildren(clang_getTranslationUnitCursor(TU),
+ *   visitChildren(getTranslationUnitCursor(TU),
  *                       TranslationUnitVisitor, 0);
- *   clang_disposeTranslationUnit(TU);
+ *   disposeTranslationUnit(TU);
  * \endcode
  *
  * This process of creating the 'pch', loading it separately, and using it (via
  * -include-pch) allows 'excludeDeclsFromPCH' to remove redundant callbacks
  * (which gives the indexer the same performance benefit as the compiler).
  */
-clang_createIndex :: proc (excludeDeclarationsFromPCH: c.int, displayDiagnostics: c.int) -> CXIndex ---;
+createIndex :: proc (excludeDeclarationsFromPCH: c.int, displayDiagnostics: c.int) -> CXIndex ---;
 
 /**
  * Destroy the given index.
@@ -3211,7 +3211,7 @@ clang_createIndex :: proc (excludeDeclarationsFromPCH: c.int, displayDiagnostics
  * The index must not be destroyed until all of the translation units created
  * within that index have been destroyed.
  */
-clang_disposeIndex :: proc(index: CXIndex)  ---;
+disposeIndex :: proc(index: CXIndex)  ---;
 
 
 
@@ -3221,14 +3221,14 @@ clang_disposeIndex :: proc(index: CXIndex)  ---;
  * For example:
  * \code
  * CXIndex idx = ...;
- * clang_CXIndex_setGlobalOptions(idx,
- *     clang_CXIndex_getGlobalOptions(idx) |
+ * CXIndex_setGlobalOptions(idx,
+ *     CXIndex_getGlobalOptions(idx) |
  *     CXGlobalOpt_ThreadBackgroundPriorityForIndexing);
  * \endcode
  *
  * \param options A bitmask of options, a bitwise OR of CXGlobalOpt_XXX flags.
  */
-clang_CXIndex_setGlobalOptions :: proc (index: CXIndex, options: c.uint)  ---;
+CXIndex_setGlobalOptions :: proc (index: CXIndex, options: c.uint)  ---;
 
 /**
  * Gets the general options associated with a CXIndex.
@@ -3236,7 +3236,7 @@ clang_CXIndex_setGlobalOptions :: proc (index: CXIndex, options: c.uint)  ---;
  * \returns A bitmask of options, a bitwise OR of CXGlobalOpt_XXX flags that
  * are associated with the given CXIndex object.
  */
-clang_CXIndex_getGlobalOptions :: proc(index: CXIndex) -> c.uint  ---;
+CXIndex_getGlobalOptions :: proc(index: CXIndex) -> c.uint  ---;
 
 /**
  * Sets the invocation emission path option in a CXIndex.
@@ -3245,7 +3245,7 @@ clang_CXIndex_getGlobalOptions :: proc(index: CXIndex) -> c.uint  ---;
  * files for certain libclang invocations. A null value (default) implies that
  * libclang invocations are not logged..
  */
-clang_CXIndex_setInvocationEmissionPathOption :: proc(index: CXIndex, Path: cstring) ---;
+CXIndex_setInvocationEmissionPathOption :: proc(index: CXIndex, Path: cstring) ---;
 
 /**
  * \defgroup CINDEX_FILES File manipulation routines
@@ -3258,12 +3258,12 @@ clang_CXIndex_setInvocationEmissionPathOption :: proc(index: CXIndex, Path: cstr
 /**
  * Retrieve the complete file and path name of the given file.
  */
-clang_getFileName :: proc(sfile: CXFile) -> CXString  ---;
+getFileName :: proc(sfile: CXFile) -> CXString  ---;
 
 /**
  * Retrieve the last modification time of the given file.
  */
-clang_getFileTime :: proc(sfile: CXFile) -> c.long ---; //TODO(Platin21): Fix this to the correct signature
+getFileTime :: proc(sfile: CXFile) -> c.long ---; //TODO(Platin21): Fix this to the correct signature
 
 /**
  * Retrieve the unique ID for the given \c file.
@@ -3273,14 +3273,14 @@ clang_getFileTime :: proc(sfile: CXFile) -> c.long ---; //TODO(Platin21): Fix th
  * \returns If there was a failure getting the unique ID, returns non-zero,
  * otherwise returns 0.
  */
-clang_getFileUniqueID :: proc(file: CXFile, outID: ^CXFileUniqueID) -> c.int  ---;
+getFileUniqueID :: proc(file: CXFile, outID: ^CXFileUniqueID) -> c.int  ---;
 
 /**
  * Determine whether the given header is guarded against
  * multiple inclusions, either with the conventional
  * \#ifndef/\#define/\#endif macro guards or with \#pragma once.
  */
-clang_isFileMultipleIncludeGuarded :: proc (tu: CXTranslationUnit, file: CXFile) -> c.uint  ---;
+isFileMultipleIncludeGuarded :: proc (tu: CXTranslationUnit, file: CXFile) -> c.uint  ---;
 
 /**
  * Retrieve a file handle within the given translation unit.
@@ -3292,7 +3292,7 @@ clang_isFileMultipleIncludeGuarded :: proc (tu: CXTranslationUnit, file: CXFile)
  * \returns the file handle for the named file in the translation unit \p tu,
  * or a NULL file handle if the file was not a part of this translation unit.
  */
-clang_getFile :: proc(tu: CXTranslationUnit, file_name: cstring) -> CXFile ---;
+getFile :: proc(tu: CXTranslationUnit, file_name: cstring) -> CXFile ---;
 
 /**
  * Retrieve the buffer associated with the given file.
@@ -3306,20 +3306,20 @@ clang_getFile :: proc(tu: CXTranslationUnit, file_name: cstring) -> CXFile ---;
  * \returns a pointer to the buffer in memory that holds the contents of
  * \p file, or a NULL pointer when the file is not loaded.
  */
-clang_getFileContents :: proc(tu: CXTranslationUnit, file: CXFile, size: c.size_t) -> cstring ---;
+getFileContents :: proc(tu: CXTranslationUnit, file: CXFile, size: c.size_t) -> cstring ---;
 
 /**
  * Returns non-zero if the \c file1 and \c file2 point to the same file,
  * or they are both NULL.
  */
-clang_File_isEqual :: proc(file1: CXFile, file2: CXFile) -> c.int ---;
+File_isEqual :: proc(file1: CXFile, file2: CXFile) -> c.int ---;
 
 /**
  * Returns the real path name of \c file.
  *
- * An empty string may be returned. Use \c clang_getFileName() in that case.
+ * An empty string may be returned. Use \c getFileName() in that case.
  */
-clang_File_tryGetRealPathName :: proc(file: CXFile) -> CXString ---;
+File_tryGetRealPathName :: proc(file: CXFile) -> CXString ---;
 
 /**
  * @}
@@ -3341,7 +3341,7 @@ clang_File_tryGetRealPathName :: proc(file: CXFile) -> CXString ---;
 /**
  * Retrieve a NULL (invalid) source location.
  */
-clang_getNullLocation :: proc() -> CXSourceLocation ---;
+getNullLocation :: proc() -> CXSourceLocation ---;
 
 /**
  * Determine whether two source locations, which must refer into
@@ -3351,52 +3351,52 @@ clang_getNullLocation :: proc() -> CXSourceLocation ---;
  * \returns non-zero if the source locations refer to the same location, zero
  * if they refer to different locations.
  */
-clang_equalLocations :: proc(loc1: CXSourceLocation,loc2: CXSourceLocation) -> c.uint ---;
+equalLocations :: proc(loc1: CXSourceLocation,loc2: CXSourceLocation) -> c.uint ---;
 
 /**
  * Retrieves the source location associated with a given file/line/column
  * in a particular translation unit.
  */
-clang_getLocation :: proc(tu: CXTranslationUnit, file: CXFile, line: c.uint, column: c.uint) -> CXSourceLocation ---;
+getLocation :: proc(tu: CXTranslationUnit, file: CXFile, line: c.uint, column: c.uint) -> CXSourceLocation ---;
 /**
  * Retrieves the source location associated with a given character offset
  * in a particular translation unit.
  */
- clang_getLocationForOffset :: proc (tu: CXTranslationUnit, file: CXFile, offset: c.uint) -> CXSourceLocation ---;
+ getLocationForOffset :: proc (tu: CXTranslationUnit, file: CXFile, offset: c.uint) -> CXSourceLocation ---;
 
 /**
  * Returns non-zero if the given source location is in a system header.
  */
-clang_Location_isInSystemHeader :: proc (location: CXSourceLocation) -> c.int ---;
+Location_isInSystemHeader :: proc (location: CXSourceLocation) -> c.int ---;
 
 /**
  * Returns non-zero if the given source location is in the main file of
  * the corresponding translation unit.
  */
-clang_Location_isFromMainFile :: proc (location: CXSourceLocation) -> c.int ---;
+Location_isFromMainFile :: proc (location: CXSourceLocation) -> c.int ---;
 
 /**
  * Retrieve a NULL (invalid) source range.
  */
-clang_getNullRange :: proc() -> CXSourceRange ---;
+getNullRange :: proc() -> CXSourceRange ---;
 
 /**
  * Retrieve a source range given the beginning and ending source
  * locations.
  */
- clang_getRange :: proc(begin: CXSourceLocation, end: CXSourceLocation) -> CXSourceRange ---;
+ getRange :: proc(begin: CXSourceLocation, end: CXSourceLocation) -> CXSourceRange ---;
 
 /**
  * Determine whether two ranges are equivalent.
  *
  * \returns non-zero if the ranges are the same, zero if they differ.
  */
-clang_equalRanges :: proc(range1: CXSourceRange , range2: CXSourceRange ) -> c.uint ---;
+equalRanges :: proc(range1: CXSourceRange , range2: CXSourceRange ) -> c.uint ---;
 
 /**
  * Returns non-zero if \p range is null.
  */
-clang_Range_isNull :: proc(range: CXSourceRange) -> c.int ---;
+Range_isNull :: proc(range: CXSourceRange) -> c.int ---;
 
 /**
  * Retrieve the file, line, column, and offset represented by
@@ -3420,7 +3420,7 @@ clang_Range_isNull :: proc(range: CXSourceRange) -> c.int ---;
  * \param offset [out] if non-NULL, will be set to the offset into the
  * buffer to which the given source location points.
  */
-clang_getExpansionLocation :: proc(location: CXSourceLocation, file: ^CXFile,line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
+getExpansionLocation :: proc(location: CXSourceLocation, file: ^CXFile,line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
 
 /**
  * Retrieve the file, line and column represented by the given source
@@ -3441,7 +3441,7 @@ clang_getExpansionLocation :: proc(location: CXSourceLocation, file: ^CXFile,lin
  *
  * File: dummy.c Line: 124 Column: 12
  *
- * whereas clang_getExpansionLocation would have returned
+ * whereas getExpansionLocation would have returned
  *
  * File: somefile.c Line: 3 Column: 12
  *
@@ -3453,7 +3453,7 @@ clang_getExpansionLocation :: proc(location: CXSourceLocation, file: ^CXFile,lin
  * which don't necessarily exist on the machine running clang - e.g. when
  * parsing preprocessed output obtained from a different environment. If
  * a non-NULL value is passed in, remember to dispose of the returned value
- * using \c clang_disposeString() once you've finished with it. For an invalid
+ * using \c disposeString() once you've finished with it. For an invalid
  * source location, an empty string is returned.
  *
  * \param line [out] if non-NULL, will be set to the line number of the
@@ -3462,17 +3462,17 @@ clang_getExpansionLocation :: proc(location: CXSourceLocation, file: ^CXFile,lin
  * \param column [out] if non-NULL, will be set to the column number of the
  * source location. For an invalid source location, zero is returned.
  */
-clang_getPresumedLocation :: proc(location: CXSourceLocation, filename: ^CXString, line: ^c.uint, column: ^c.uint) ---;
+getPresumedLocation :: proc(location: CXSourceLocation, filename: ^CXString, line: ^c.uint, column: ^c.uint) ---;
 
 /**
  * Legacy API to retrieve the file, line, column, and offset represented
  * by the given source location.
  *
  * This interface has been replaced by the newer interface
- * #clang_getExpansionLocation(). See that interface's documentation for
+ * #getExpansionLocation(). See that interface's documentation for
  * details.
  */
-clang_getInstantiationLocation :: proc(location: CXSourceLocation,
+getInstantiationLocation :: proc(location: CXSourceLocation,
                                                    file: ^CXFile, 
                                                    line: ^c.uint,
                                                    column: ^c.uint,
@@ -3500,7 +3500,7 @@ clang_getInstantiationLocation :: proc(location: CXSourceLocation,
  * \param offset [out] if non-NULL, will be set to the offset into the
  * buffer to which the given source location points.
  */
-clang_getSpellingLocation :: proc(location: CXSourceLocation, file: ^CXFile, line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
+getSpellingLocation :: proc(location: CXSourceLocation, file: ^CXFile, line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
 
 /**
  * Retrieve the file, line, column, and offset represented by
@@ -3525,19 +3525,19 @@ clang_getSpellingLocation :: proc(location: CXSourceLocation, file: ^CXFile, lin
  * \param offset [out] if non-NULL, will be set to the offset into the
  * buffer to which the given source location points.
  */
-clang_getFileLocation :: proc(location: CXSourceLocation, file: ^CXFile, line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
+getFileLocation :: proc(location: CXSourceLocation, file: ^CXFile, line: ^c.uint, column: ^c.uint, offset: ^c.uint) ---;
 
 /**
  * Retrieve a source location representing the first character within a
  * source range.
  */
-clang_getRangeStart :: proc(range: CXSourceRange) -> CXSourceLocation ---;
+getRangeStart :: proc(range: CXSourceRange) -> CXSourceLocation ---;
 
 /**
  * Retrieve a source location representing the last character within a
  * source range.
  */
-clang_getRangeEnd :: proc(range: CXSourceRange) -> CXSourceLocation ---;
+getRangeEnd :: proc(range: CXSourceRange) -> CXSourceLocation ---;
 
 /**
  * Retrieve all ranges that were skipped by the preprocessor.
@@ -3545,7 +3545,7 @@ clang_getRangeEnd :: proc(range: CXSourceRange) -> CXSourceLocation ---;
  * The preprocessor will skip lines when they are surrounded by an
  * if/ifdef/ifndef directive whose condition does not evaluate to true.
  */
-clang_getSkippedRanges :: proc(tu: CXTranslationUnit, file: CXFile) -> ^CXSourceRangeList ---;
+getSkippedRanges :: proc(tu: CXTranslationUnit, file: CXFile) -> ^CXSourceRangeList ---;
 
 /**
  * Retrieve all ranges from all files that were skipped by the
@@ -3554,12 +3554,12 @@ clang_getSkippedRanges :: proc(tu: CXTranslationUnit, file: CXFile) -> ^CXSource
  * The preprocessor will skip lines when they are surrounded by an
  * if/ifdef/ifndef directive whose condition does not evaluate to true.
  */
-clang_getAllSkippedRanges :: proc(tu: CXTranslationUnit) -> ^CXSourceRangeList ---;
+getAllSkippedRanges :: proc(tu: CXTranslationUnit) -> ^CXSourceRangeList ---;
 
 /**
  * Destroy the given \c CXSourceRangeList.
  */
-clang_disposeSourceRangeList :: proc(ranges: ^CXSourceRangeList) ---;
+disposeSourceRangeList :: proc(ranges: ^CXSourceRangeList) ---;
 
 /**
  * @}
@@ -3574,7 +3574,7 @@ clang_disposeSourceRangeList :: proc(ranges: ^CXSourceRangeList) ---;
 /**
  * Determine the number of diagnostics in a CXDiagnosticSet.
  */
-clang_getNumDiagnosticsInSet :: proc(Diags: CXDiagnosticSet) -> c.uint ---;
+getNumDiagnosticsInSet :: proc(Diags: CXDiagnosticSet) -> c.uint ---;
 
 /**
  * Retrieve a diagnostic associated with the given CXDiagnosticSet.
@@ -3583,9 +3583,9 @@ clang_getNumDiagnosticsInSet :: proc(Diags: CXDiagnosticSet) -> c.uint ---;
  * \param Index the zero-based diagnostic number to retrieve.
  *
  * \returns the requested diagnostic. This diagnostic must be freed
- * via a call to \c clang_disposeDiagnostic().
+ * via a call to \c disposeDiagnostic().
  */
-clang_getDiagnosticInSet :: proc(Diags: CXDiagnosticSet, Index: c.uint) -> CXDiagnostic ---;
+getDiagnosticInSet :: proc(Diags: CXDiagnosticSet, Index: c.uint) -> CXDiagnostic ---;
 
 /**
  * Deserialize a set of diagnostics from a Clang diagnostics bitcode
@@ -3598,28 +3598,28 @@ clang_getDiagnosticInSet :: proc(Diags: CXDiagnosticSet, Index: c.uint) -> CXDia
  *        if the file was not successfully loaded.
  *
  * \returns A loaded CXDiagnosticSet if successful, and NULL otherwise.  These
- * diagnostics should be released using clang_disposeDiagnosticSet().
+ * diagnostics should be released using disposeDiagnosticSet().
  */
-clang_loadDiagnostics :: proc(file: cstring, error: ^CXLoadDiag_Error, errorString: ^CXString) -> CXDiagnosticSet ---;
+loadDiagnostics :: proc(file: cstring, error: ^CXLoadDiag_Error, errorString: ^CXString) -> CXDiagnosticSet ---;
 
 /**
  * Release a CXDiagnosticSet and all of its contained diagnostics.
  */
-clang_disposeDiagnosticSet :: proc(Diags: CXDiagnosticSet) ---;
+disposeDiagnosticSet :: proc(Diags: CXDiagnosticSet) ---;
 
 /**
  * Retrieve the child diagnostics of a CXDiagnostic.
  *
  * This CXDiagnosticSet does not need to be released by
- * clang_disposeDiagnosticSet.
+ * disposeDiagnosticSet.
  */
-clang_getChildDiagnostics :: proc(D: CXDiagnostic) -> CXDiagnosticSet ---;
+getChildDiagnostics :: proc(D: CXDiagnostic) -> CXDiagnosticSet ---;
 
 /**
  * Determine the number of diagnostics produced for the given
  * translation unit.
  */
-clang_getNumDiagnostics :: proc(Unit: CXTranslationUnit) -> c.uint ---;
+getNumDiagnostics :: proc(Unit: CXTranslationUnit) -> c.uint ---;
 
 /**
  * Retrieve a diagnostic associated with the given translation unit.
@@ -3628,9 +3628,9 @@ clang_getNumDiagnostics :: proc(Unit: CXTranslationUnit) -> c.uint ---;
  * \param Index the zero-based diagnostic number to retrieve.
  *
  * \returns the requested diagnostic. This diagnostic must be freed
- * via a call to \c clang_disposeDiagnostic().
+ * via a call to \c disposeDiagnostic().
  */
-clang_getDiagnostic :: proc(Unit: CXTranslationUnit, Index: c.uint) -> CXDiagnostic ---;
+getDiagnostic :: proc(Unit: CXTranslationUnit, Index: c.uint) -> CXDiagnostic ---;
 
 /**
  * Retrieve the complete set of diagnostics associated with a
@@ -3638,19 +3638,19 @@ clang_getDiagnostic :: proc(Unit: CXTranslationUnit, Index: c.uint) -> CXDiagnos
  *
  * \param Unit the translation unit to query.
  */
-clang_getDiagnosticSetFromTU :: proc(Unit: CXTranslationUnit) -> CXDiagnosticSet ---;
+getDiagnosticSetFromTU :: proc(Unit: CXTranslationUnit) -> CXDiagnosticSet ---;
 
 /**
  * Destroy a diagnostic.
  */
-clang_disposeDiagnostic :: proc(Diagnostic: CXDiagnostic) ---;
+disposeDiagnostic :: proc(Diagnostic: CXDiagnostic) ---;
 
 /**
  * Format the given diagnostic in a manner that is suitable for display.
  *
  * This routine will format the given diagnostic to a string, rendering
  * the diagnostic according to the various options given. The
- * \c clang_defaultDiagnosticDisplayOptions() function returns the set of
+ * \c defaultDiagnosticDisplayOptions() function returns the set of
  * options that most closely mimics the behavior of the clang compiler.
  *
  * \param Diagnostic The diagnostic to print.
@@ -3660,21 +3660,21 @@ clang_disposeDiagnostic :: proc(Diagnostic: CXDiagnostic) ---;
  *
  * \returns A new string containing for formatted diagnostic.
  */
-clang_formatDiagnostic :: proc(Diagnostic: CXDiagnostic, Options: c.uint) -> CXString ---;
+formatDiagnostic :: proc(Diagnostic: CXDiagnostic, Options: c.uint) -> CXString ---;
 
 /**
  * Retrieve the set of display options most similar to the
  * default behavior of the clang compiler.
  *
  * \returns A set of display options suitable for use with \c
- * clang_formatDiagnostic().
+ * formatDiagnostic().
  */
-clang_defaultDiagnosticDisplayOptions :: proc() -> c.uint ---;
+defaultDiagnosticDisplayOptions :: proc() -> c.uint ---;
 
 /**
  * Determine the severity of the given diagnostic.
  */
-clang_getDiagnosticSeverity :: proc(d: CXDiagnostic) -> CXDiagnosticSeverity ---;
+getDiagnosticSeverity :: proc(d: CXDiagnostic) -> CXDiagnosticSeverity ---;
 
 /**
  * Retrieve the source location of the given diagnostic.
@@ -3682,12 +3682,12 @@ clang_getDiagnosticSeverity :: proc(d: CXDiagnostic) -> CXDiagnosticSeverity ---
  * This location is where Clang would print the caret ('^') when
  * displaying the diagnostic on the command line.
  */
-clang_getDiagnosticLocation :: proc(d: CXDiagnostic) -> CXSourceLocation ---;
+getDiagnosticLocation :: proc(d: CXDiagnostic) -> CXSourceLocation ---;
 
 /**
  * Retrieve the text of the given diagnostic.
  */
-clang_getDiagnosticSpelling :: proc(d: CXDiagnostic) -> CXString ---;
+getDiagnosticSpelling :: proc(d: CXDiagnostic) -> CXString ---;
 
 /**
  * Retrieve the name of the command-line option that enabled this
@@ -3701,7 +3701,7 @@ clang_getDiagnosticSpelling :: proc(d: CXDiagnostic) -> CXString ---;
  * \returns A string that contains the command-line option used to enable this
  * warning, such as "-Wconversion" or "-pedantic".
  */
- clang_getDiagnosticOption :: proc(Diag: CXDiagnostic, Disable: ^CXString) -> CXString ---;
+ getDiagnosticOption :: proc(Diag: CXDiagnostic, Disable: ^CXString) -> CXString ---;
 
 /**
  * Retrieve the category number for this diagnostic.
@@ -3713,32 +3713,32 @@ clang_getDiagnosticSpelling :: proc(d: CXDiagnostic) -> CXString ---;
  * \returns The number of the category that contains this diagnostic, or zero
  * if this diagnostic is uncategorized.
  */
-clang_getDiagnosticCategory :: proc(d: CXDiagnostic) -> c.uint ---;
+getDiagnosticCategory :: proc(d: CXDiagnostic) -> c.uint ---;
 
 /**
  * Retrieve the name of a particular diagnostic category.  This
- *  is now deprecated.  Use clang_getDiagnosticCategoryText()
+ *  is now deprecated.  Use getDiagnosticCategoryText()
  *  instead.
  *
  * \param Category A diagnostic category number, as returned by
- * \c clang_getDiagnosticCategory().
+ * \c getDiagnosticCategory().
  *
  * \returns The name of the given diagnostic category.
  */
-clang_getDiagnosticCategoryName :: proc(Category: c.uint) -> CXString ---;
+getDiagnosticCategoryName :: proc(Category: c.uint) -> CXString ---;
 
 /**
  * Retrieve the diagnostic category text for a given diagnostic.
  *
  * \returns The text of the given diagnostic category.
  */
-clang_getDiagnosticCategoryText :: proc(d: CXDiagnostic) -> CXString ---;
+getDiagnosticCategoryText :: proc(d: CXDiagnostic) -> CXString ---;
 
 /**
  * Determine the number of source ranges associated with the given
  * diagnostic.
  */
-clang_getDiagnosticNumRanges :: proc(d: CXDiagnostic) -> c.uint ---;
+getDiagnosticNumRanges :: proc(d: CXDiagnostic) -> c.uint ---;
 
 /**
  * Retrieve a source range associated with the diagnostic.
@@ -3753,13 +3753,13 @@ clang_getDiagnosticNumRanges :: proc(d: CXDiagnostic) -> c.uint ---;
  *
  * \returns the requested source range.
  */
-clang_getDiagnosticRange :: proc(Diagnostic: CXDiagnostic, Range: c.uint) -> CXSourceRange ---;
+getDiagnosticRange :: proc(Diagnostic: CXDiagnostic, Range: c.uint) -> CXSourceRange ---;
 
 /**
  * Determine the number of fix-it hints associated with the
  * given diagnostic.
  */
-clang_getDiagnosticNumFixIts :: proc(Diagnostic: CXDiagnostic) -> c.uint ---;
+getDiagnosticNumFixIts :: proc(Diagnostic: CXDiagnostic) -> c.uint ---;
 
 /**
  * Retrieve the replacement information for a given fix-it.
@@ -3786,7 +3786,7 @@ clang_getDiagnosticNumFixIts :: proc(Diagnostic: CXDiagnostic) -> c.uint ---;
  * \returns A string containing text that should be replace the source
  * code indicated by the \c ReplacementRange.
  */
-clang_getDiagnosticFixIt :: proc(Diagnostic: CXDiagnostic ,FixIt: c.uint, ReplacementRange: ^CXSourceRange) -> CXString ---;
+getDiagnosticFixIt :: proc(Diagnostic: CXDiagnostic ,FixIt: c.uint, ReplacementRange: ^CXSourceRange) -> CXString ---;
 
 /**
  * @}
@@ -3805,7 +3805,7 @@ clang_getDiagnosticFixIt :: proc(Diagnostic: CXDiagnostic ,FixIt: c.uint, Replac
 /**
  * Get the original translation unit source file name.
  */
-clang_getTranslationUnitSpelling :: proc(CTUnit: CXTranslationUnit) -> CXString ---;
+getTranslationUnitSpelling :: proc(CTUnit: CXTranslationUnit) -> CXString ---;
 
 /**
  * Return the CXTranslationUnit for a given source file and the provided
@@ -3815,7 +3815,7 @@ clang_getTranslationUnitSpelling :: proc(CTUnit: CXTranslationUnit) -> CXString 
  * NULL pointer, the name of the source file is expected to reside in the
  * specified command line arguments.
  *
- * Note: When encountered in 'clang_command_line_args', the following options
+ * Note: When encountered in 'command_line_args', the following options
  * are ignored:
  *
  *   '-c'
@@ -3827,12 +3827,12 @@ clang_getTranslationUnitSpelling :: proc(CTUnit: CXTranslationUnit) -> CXString 
  * associated.
  *
  * \param source_filename The name of the source file to load, or NULL if the
- * source file is included in \p clang_command_line_args.
+ * source file is included in \p command_line_args.
  *
- * \param num_clang_command_line_args The number of command-line arguments in
- * \p clang_command_line_args.
+ * \param num_command_line_args The number of command-line arguments in
+ * \p command_line_args.
  *
- * \param clang_command_line_args The command-line arguments that would be
+ * \param command_line_args The command-line arguments that would be
  * passed to the \c clang executable if it were being invoked out-of-process.
  * These command-line options will be parsed and will affect how the translation
  * unit is parsed. Note that the following options are ignored: '-c',
@@ -3847,15 +3847,15 @@ clang_getTranslationUnitSpelling :: proc(CTUnit: CXTranslationUnit) -> CXString 
  * CXUnsavedFile) are copied when necessary, so the client only needs to
  * guarantee their validity until the call to this function returns.
  */
-clang_createTranslationUnitFromSourceFile :: proc(CIdx: CXIndex, source_filename: cstring, num_clang_command_line_args: c.int, clang_command_line_args: ^cstring, num_unsaved_files: c.uint, unsaved_files: ^CXUnsavedFile) -> CXTranslationUnit ---;
+createTranslationUnitFromSourceFile :: proc(CIdx: CXIndex, source_filename: cstring, num_command_line_args: c.int, command_line_args: ^cstring, num_unsaved_files: c.uint, unsaved_files: ^CXUnsavedFile) -> CXTranslationUnit ---;
 
 /**
- * Same as \c clang_createTranslationUnit2, but returns
+ * Same as \c createTranslationUnit2, but returns
  * the \c CXTranslationUnit instead of an error code.  In case of an error this
  * routine returns a \c NULL \c CXTranslationUnit, without further detailed
  * error codes.
  */
-clang_createTranslationUnit :: proc(CIdx: CXIndex, ast_filename: cstring) -> CXTranslationUnit ---;
+createTranslationUnit :: proc(CIdx: CXIndex, ast_filename: cstring) -> CXTranslationUnit ---;
 
 /**
  * Create a translation unit from an AST file (\c -emit-ast).
@@ -3865,29 +3865,29 @@ clang_createTranslationUnit :: proc(CIdx: CXIndex, ast_filename: cstring) -> CXT
  *
  * \returns Zero on success, otherwise returns an error code.
  */
-clang_createTranslationUnit2 :: proc(CIdx: CXIndex, ast_filename: cstring, out_TU: ^CXTranslationUnit) -> CXErrorCode ---;
+createTranslationUnit2 :: proc(CIdx: CXIndex, ast_filename: cstring, out_TU: ^CXTranslationUnit) -> CXErrorCode ---;
 
 /**
  * Returns the set of flags that is suitable for parsing a translation
  * unit that is being edited.
  *
- * The set of flags returned provide options for \c clang_parseTranslationUnit()
+ * The set of flags returned provide options for \c parseTranslationUnit()
  * to indicate that the translation unit is likely to be reparsed many times,
- * either explicitly (via \c clang_reparseTranslationUnit()) or implicitly
- * (e.g., by code completion (\c clang_codeCompletionAt())). The returned flag
+ * either explicitly (via \c reparseTranslationUnit()) or implicitly
+ * (e.g., by code completion (\c codeCompletionAt())). The returned flag
  * set contains an unspecified set of optimizations (e.g., the precompiled
  * preamble) geared toward improving the performance of these routines. The
  * set of optimizations enabled may change from one version to the next.
  */
-clang_defaultEditingTranslationUnitOptions :: proc() -> c.uint ---;
+defaultEditingTranslationUnitOptions :: proc() -> c.uint ---;
 
 /**
- * Same as \c clang_parseTranslationUnit2, but returns
+ * Same as \c parseTranslationUnit2, but returns
  * the \c CXTranslationUnit instead of an error code.  In case of an error this
  * routine returns a \c NULL \c CXTranslationUnit, without further detailed
  * error codes.
  */
-clang_parseTranslationUnit :: proc(
+parseTranslationUnit :: proc(
     CIdx: CXIndex , source_filename: cstring,
     command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
@@ -3939,18 +3939,18 @@ clang_parseTranslationUnit :: proc(
  */
 
 
-clang_parseTranslationUnit2 :: proc(
+parseTranslationUnit2 :: proc(
     CIdx: CXIndex , source_filename: cstring,
     command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
     options: c.uint, out_TU: ^CXTranslationUnit) -> CXErrorCode ---; 
 
 /**
- * Same as clang_parseTranslationUnit2 but requires a full command line
+ * Same as parseTranslationUnit2 but requires a full command line
  * for \c command_line_args including argv[0]. This is useful if the standard
  * library paths are relative to the binary.
  */
-clang_parseTranslationUnit2FullArgv :: proc(
+parseTranslationUnit2FullArgv :: proc(
     CIdx: CXIndex , source_filename: cstring,
     command_line_args: [^]cstring, num_command_line_args: c.int,
     unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint,
@@ -3961,11 +3961,11 @@ clang_parseTranslationUnit2FullArgv :: proc(
  * unit.
  *
  * The set of flags returned provide options for
- * \c clang_saveTranslationUnit() by default. The returned flag
+ * \c saveTranslationUnit() by default. The returned flag
  * set contains an unspecified set of options that save translation units with
  * the most commonly-requested data.
  */
-clang_defaultSaveOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
+defaultSaveOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
 
 /**
  * Saves a translation unit into a serialized representation of
@@ -3973,7 +3973,7 @@ clang_defaultSaveOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
  *
  * Any translation unit that was parsed without error can be saved
  * into a file. The translation unit can then be deserialized into a
- * new \c CXTranslationUnit with \c clang_createTranslationUnit() or,
+ * new \c CXTranslationUnit with \c createTranslationUnit() or,
  * if it is an incomplete translation unit that corresponds to a
  * header, used as a precompiled header when parsing other translation
  * units.
@@ -3990,33 +3990,33 @@ clang_defaultSaveOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
  * enumeration. Zero (CXSaveError_None) indicates that the translation unit was
  * saved successfully, while a non-zero value indicates that a problem occurred.
  */
-clang_saveTranslationUnit :: proc(TU: CXTranslationUnit, FileName: cstring, options: c.uint) -> c.int ---;
+saveTranslationUnit :: proc(TU: CXTranslationUnit, FileName: cstring, options: c.uint) -> c.int ---;
 
 /**
  * Suspend a translation unit in order to free memory associated with it.
  *
  * A suspended translation unit uses significantly less memory but on the other
- * side does not support any other calls than \c clang_reparseTranslationUnit
- * to resume it or \c clang_disposeTranslationUnit to dispose it completely.
+ * side does not support any other calls than \c reparseTranslationUnit
+ * to resume it or \c disposeTranslationUnit to dispose it completely.
  */
-clang_suspendTranslationUnit :: proc(TU: CXTranslationUnit) ---;
+suspendTranslationUnit :: proc(TU: CXTranslationUnit) ---;
 
 /**
  * Destroy the specified CXTranslationUnit object.
  */
-clang_disposeTranslationUnit :: proc(TU: CXTranslationUnit) ---;
+disposeTranslationUnit :: proc(TU: CXTranslationUnit) ---;
 
 /**
  * Returns the set of flags that is suitable for reparsing a translation
  * unit.
  *
  * The set of flags returned provide options for
- * \c clang_reparseTranslationUnit() by default. The returned flag
+ * \c reparseTranslationUnit() by default. The returned flag
  * set contains an unspecified set of optimizations geared toward common uses
  * of reparsing. The set of optimizations enabled may change from one version
  * to the next.
  */
-clang_defaultReparseOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
+defaultReparseOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
 
 /**
  * Reparse the source files that produced this translation unit.
@@ -4036,7 +4036,7 @@ clang_defaultReparseOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
  *
  * \param TU The translation unit whose contents will be re-parsed. The
  * translation unit must originally have been built with
- * \c clang_createTranslationUnitFromSourceFile().
+ * \c createTranslationUnitFromSourceFile().
  *
  * \param num_unsaved_files The number of unsaved file entries in \p
  * unsaved_files.
@@ -4048,16 +4048,16 @@ clang_defaultReparseOptions :: proc(TU: CXTranslationUnit) -> c.uint ---;
  * guarantee their validity until the call to this function returns.
  *
  * \param options A bitset of options composed of the flags in CXReparse_Flags.
- * The function \c clang_defaultReparseOptions() produces a default set of
+ * The function \c defaultReparseOptions() produces a default set of
  * options recommended for most uses, based on the translation unit.
  *
  * \returns 0 if the sources could be reparsed.  A non-zero error code will be
  * returned if reparsing was impossible, such that the translation unit is
  * invalid. In such cases, the only valid call for \c TU is
- * \c clang_disposeTranslationUnit(TU).  The error codes returned by this
+ * \c disposeTranslationUnit(TU).  The error codes returned by this
  * routine are described by the \c CXErrorCode enum.
  */
-clang_reparseTranslationUnit :: proc(TU: CXTranslationUnit , num_unsaved_files: c.uint,
+reparseTranslationUnit :: proc(TU: CXTranslationUnit , num_unsaved_files: c.uint,
                              unsaved_files: ^CXUnsavedFile,
                              options: c.uint) -> c.int ---;
 
@@ -4065,42 +4065,42 @@ clang_reparseTranslationUnit :: proc(TU: CXTranslationUnit , num_unsaved_files: 
  * Returns the human-readable null-terminated C string that represents
  *  the name of the memory category.  This string should never be freed.
  */
-clang_getTUResourceUsageName :: proc(kind: CXTUResourceUsageKind) -> cstring ---;
+getTUResourceUsageName :: proc(kind: CXTUResourceUsageKind) -> cstring ---;
 
 /**
  * Return the memory usage of a translation unit.  This object
- *  should be released with clang_disposeCXTUResourceUsage().
+ *  should be released with disposeCXTUResourceUsage().
  */
 
-clang_getCXTUResourceUsage :: proc(TU: CXTranslationUnit) -> CXTUResourceUsage ---;
+getCXTUResourceUsage :: proc(TU: CXTranslationUnit) -> CXTUResourceUsage ---;
 
-clang_disposeCXTUResourceUsage :: proc(usage: CXTUResourceUsage) ---;
+disposeCXTUResourceUsage :: proc(usage: CXTUResourceUsage) ---;
 
 /**
  * Get target information for this translation unit.
  *
  * The CXTargetInfo object cannot outlive the CXTranslationUnit object.
  */
-clang_getTranslationUnitTargetInfo :: proc(CTUnit: CXTranslationUnit) -> CXTargetInfo ---;
+getTranslationUnitTargetInfo :: proc(CTUnit: CXTranslationUnit) -> CXTargetInfo ---;
 
 /**
  * Destroy the CXTargetInfo object.
  */
- clang_TargetInfo_dispose :: proc(Info: CXTargetInfo) ---;
+ TargetInfo_dispose :: proc(Info: CXTargetInfo) ---;
 
 /**
  * Get the normalized target triple as a string.
  *
  * Returns the empty string in case of any error.
  */
-clang_TargetInfo_getTriple :: proc(Info: CXTargetInfo ) ->  CXString ---;
+TargetInfo_getTriple :: proc(Info: CXTargetInfo ) ->  CXString ---;
 
 /**
  * Get the pointer width of the target in bits.
  *
  * Returns -1 in case of error.
  */
-clang_TargetInfo_getPointerWidth :: proc(Info: CXTargetInfo) -> c.int ---;
+TargetInfo_getPointerWidth :: proc(Info: CXTargetInfo) -> c.int ---;
 
 /**
  * @}
@@ -4115,7 +4115,7 @@ clang_TargetInfo_getPointerWidth :: proc(Info: CXTargetInfo) -> c.int ---;
 /**
  * Retrieve the NULL cursor, which represents no entity.
  */
-clang_getNullCursor :: proc() -> CXCursor ---;
+getNullCursor :: proc() -> CXCursor ---;
 
 /**
  * Retrieve the cursor that represents the given translation unit.
@@ -4123,32 +4123,32 @@ clang_getNullCursor :: proc() -> CXCursor ---;
  * The translation unit cursor can be used to start traversing the
  * various declarations within the given translation unit.
  */
-clang_getTranslationUnitCursor :: proc(TU: CXTranslationUnit) -> CXCursor ---;
+getTranslationUnitCursor :: proc(TU: CXTranslationUnit) -> CXCursor ---;
 
 /**
  * Determine whether two cursors are equivalent.
  */
-clang_equalCursors :: proc(a: CXCursor, b: CXCursor) -> c.uint ---;
+equalCursors :: proc(a: CXCursor, b: CXCursor) -> c.uint ---;
 
 /**
  * Returns non-zero if \p cursor is null.
  */
-clang_Cursor_isNull :: proc(cursor: CXCursor) -> int ---;
+Cursor_isNull :: proc(cursor: CXCursor) -> int ---;
 
 /**
  * Compute a hash value for the given cursor.
  */
-clang_hashCursor :: proc(cursor: CXCursor) -> c.uint ---;
+hashCursor :: proc(cursor: CXCursor) -> c.uint ---;
 
 /**
  * Retrieve the kind of the given cursor.
  */
-clang_getCursorKind :: proc(cursor: CXCursor) -> CXCursorKind ---;
+getCursorKind :: proc(cursor: CXCursor) -> CXCursorKind ---;
 
 /**
  * Determine whether the given cursor kind represents a declaration.
  */
-clang_isDeclaration :: proc(kind: CXCursorKind) -> c.uint ---;
+isDeclaration :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given declaration is invalid.
@@ -4158,66 +4158,66 @@ clang_isDeclaration :: proc(kind: CXCursorKind) -> c.uint ---;
  * \returns non-zero if the cursor represents a declaration and it is
  * invalid, otherwise NULL.
  */
-clang_isInvalidDeclaration :: proc(cursor: CXCursor) -> c.uint ---;
+isInvalidDeclaration :: proc(cursor: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents a simple
  * reference.
  *
  * Note that other kinds of cursors (such as expressions) can also refer to
- * other cursors. Use clang_getCursorReferenced() to determine whether a
+ * other cursors. Use getCursorReferenced() to determine whether a
  * particular cursor refers to another entity.
  */
-clang_isReference :: proc(kind: CXCursorKind) -> c.uint ---;
+isReference :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents an expression.
  */
-clang_isExpression :: proc(kind: CXCursorKind) -> c.uint ---;
+isExpression :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents a statement.
  */
-clang_isStatement :: proc(kind: CXCursorKind) -> c.uint ---;
+isStatement :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents an attribute.
  */
-clang_isAttribute :: proc(kind: CXCursorKind) -> c.uint ---;
+isAttribute :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given cursor has any attributes.
  */
-clang_Cursor_hasAttrs :: proc(cx: CXCursor) -> c.uint ---;
+Cursor_hasAttrs :: proc(cx: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents an invalid
  * cursor.
  */
-clang_isInvalid :: proc (kind: CXCursorKind) -> c.uint ---;
+isInvalid :: proc (kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine whether the given cursor kind represents a translation
  * unit.
  */
-clang_isTranslationUnit :: proc (kind: CXCursorKind) -> c.uint ---;
+isTranslationUnit :: proc (kind: CXCursorKind) -> c.uint ---;
 
 /***
  * Determine whether the given cursor represents a preprocessing
  * element, such as a preprocessor directive or macro instantiation.
  */
-clang_isPreprocessing :: proc(kind: CXCursorKind) -> c.uint ---;
+isPreprocessing :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /***
  * Determine whether the given cursor represents a currently
  *  unexposed piece of the AST (e.g., CXCursor_UnexposedStmt).
  */
-clang_isUnexposed :: proc(kind: CXCursorKind) -> c.uint ---;
+isUnexposed :: proc(kind: CXCursorKind) -> c.uint ---;
 
 /**
  * Determine the linkage of the entity referred to by a given cursor.
  */
-clang_getCursorLinkage :: proc(cursor: CXCursor) -> CXLinkageKind ---;
+getCursorLinkage :: proc(cursor: CXCursor) -> CXLinkageKind ---;
 
 /**
  * Describe the visibility of the entity referred to by a cursor.
@@ -4230,7 +4230,7 @@ clang_getCursorLinkage :: proc(cursor: CXCursor) -> CXLinkageKind ---;
  *
  * \returns The visibility of the cursor.
  */
-clang_getCursorVisibility :: proc(cursor: CXCursor) -> CXVisibilityKind ---;
+getCursorVisibility :: proc(cursor: CXCursor) -> CXVisibilityKind ---;
 
 /**
  * Determine the availability of the entity that this cursor refers to,
@@ -4241,7 +4241,7 @@ clang_getCursorVisibility :: proc(cursor: CXCursor) -> CXVisibilityKind ---;
  * \returns The availability of the cursor.
  */
 
-clang_getCursorAvailability :: proc(cursor: CXCursor) -> CXAvailabilityKind ---;
+getCursorAvailability :: proc(cursor: CXCursor) -> CXAvailabilityKind ---;
 
 /**
  * Determine the availability of the entity that this cursor refers to
@@ -4275,11 +4275,11 @@ clang_getCursorAvailability :: proc(cursor: CXCursor) -> CXAvailabilityKind ---;
  * available (which is unrelated to \c availability_size).
  *
  * Note that the client is responsible for calling
- * \c clang_disposeCXPlatformAvailability to free each of the
+ * \c disposeCXPlatformAvailability to free each of the
  * platform-availability structures returned. There are
  * \c min(N, availability_size) such structures.
  */
-clang_getCursorPlatformAvailability :: proc(
+getCursorPlatformAvailability :: proc(
     cursor: CXCursor, always_deprecated: ^c.int, deprecated_message: ^CXString,
     always_unavailable: ^c.int, unavailable_message: ^CXString,
     availability: ^CXPlatformAvailability, availability_size:  c.int) -> c.int ---;
@@ -4287,47 +4287,47 @@ clang_getCursorPlatformAvailability :: proc(
 /**
  * Free the memory associated with a \c CXPlatformAvailability structure.
  */
-clang_disposeCXPlatformAvailability :: proc(availability: ^CXPlatformAvailability) ---;
+disposeCXPlatformAvailability :: proc(availability: ^CXPlatformAvailability) ---;
 
 /**
  * Determine the "language" of the entity referred to by a given cursor.
  */
-clang_getCursorLanguage :: proc(cursor: CXCursor) -> CXLanguageKind ---;
+getCursorLanguage :: proc(cursor: CXCursor) -> CXLanguageKind ---;
 
 /**
  * Determine the "thread-local storage (TLS) kind" of the declaration
  * referred to by a cursor.
  */
-clang_getCursorTLSKind :: proc(cursor: CXCursor) -> CXTLSKind ---;
+getCursorTLSKind :: proc(cursor: CXCursor) -> CXTLSKind ---;
 
 /**
  * Returns the translation unit that a cursor originated from.
  */
-clang_Cursor_getTranslationUnit :: proc(cursor: CXCursor) -> CXTranslationUnit ---;
+Cursor_getTranslationUnit :: proc(cursor: CXCursor) -> CXTranslationUnit ---;
 
 /**
  * Creates an empty CXCursorSet.
  */
-clang_createCXCursorSet :: proc() -> CXCursorSet ---;
+createCXCursorSet :: proc() -> CXCursorSet ---;
 
 /**
  * Disposes a CXCursorSet and releases its associated memory.
  */
-clang_disposeCXCursorSet :: proc(cset: CXCursorSet) ---;
+disposeCXCursorSet :: proc(cset: CXCursorSet) ---;
 
 /**
  * Queries a CXCursorSet to see if it contains a specific CXCursor.
  *
  * \returns non-zero if the set contains the specified cursor.
  */
-clang_CXCursorSet_contains :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint ---;
+CXCursorSet_contains :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint ---;
 
 /**
  * Inserts a CXCursor into a CXCursorSet.
  *
  * \returns zero if the CXCursor was already in the set, and non-zero otherwise.
  */
-clang_CXCursorSet_insert :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint ---;
+CXCursorSet_insert :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint ---;
 
 /**
  * Determine the semantic parent of the given cursor.
@@ -4335,7 +4335,7 @@ clang_CXCursorSet_insert :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint 
  * The semantic parent of a cursor is the cursor that semantically contains
  * the given \p cursor. For many declarations, the lexical and semantic parents
  * are equivalent (the lexical parent is returned by
- * \c clang_getCursorLexicalParent()). They diverge when declarations or
+ * \c getCursorLexicalParent()). They diverge when declarations or
  * definitions are provided out-of-line. For example:
  *
  * \code
@@ -4362,7 +4362,7 @@ clang_CXCursorSet_insert :: proc(cset: CXCursorSet, cursor: CXCursor) -> c.uint 
  *
  * For global declarations, the semantic parent is the translation unit.
  */
-clang_getCursorSemanticParent :: proc(cursor: CXCursor) -> CXCursor ---;
+getCursorSemanticParent :: proc(cursor: CXCursor) -> CXCursor ---;
 
 /**
  * Determine the lexical parent of the given cursor.
@@ -4370,7 +4370,7 @@ clang_getCursorSemanticParent :: proc(cursor: CXCursor) -> CXCursor ---;
  * The lexical parent of a cursor is the cursor in which the given \p cursor
  * was actually written. For many declarations, the lexical and semantic parents
  * are equivalent (the semantic parent is returned by
- * \c clang_getCursorSemanticParent()). They diverge when declarations or
+ * \c getCursorSemanticParent()). They diverge when declarations or
  * definitions are provided out-of-line. For example:
  *
  * \code
@@ -4398,7 +4398,7 @@ clang_getCursorSemanticParent :: proc(cursor: CXCursor) -> CXCursor ---;
  * For declarations written in the global scope, the lexical parent is
  * the translation unit.
  */
-clang_getCursorLexicalParent :: proc(cursor: CXCursor) -> CXCursor ---;
+getCursorLexicalParent :: proc(cursor: CXCursor) -> CXCursor ---;
 
 /**
  * Determine the set of methods that are overridden by the given
@@ -4437,25 +4437,25 @@ clang_getCursorLexicalParent :: proc(cursor: CXCursor) -> CXCursor ---;
  * pointer to an array of cursors, representing the set of overridden
  * methods. If there are no overridden methods, the pointee will be
  * set to NULL. The pointee must be freed via a call to
- * \c clang_disposeOverriddenCursors().
+ * \c disposeOverriddenCursors().
  *
  * \param num_overridden A pointer to the number of overridden
  * functions, will be set to the number of overridden functions in the
  * array pointed to by \p overridden.
  */
-clang_getOverriddenCursors :: proc(cursor: CXCursor, overridden: ^^CXCursor, num_overridden: ^c.uint) ---;
+getOverriddenCursors :: proc(cursor: CXCursor, overridden: ^^CXCursor, num_overridden: ^c.uint) ---;
 
 /**
  * Free the set of overridden cursors returned by \c
- * clang_getOverriddenCursors().
+ * getOverriddenCursors().
  */
-clang_disposeOverriddenCursors :: proc(overridden: ^CXCursor) ---;
+disposeOverriddenCursors :: proc(overridden: ^CXCursor) ---;
 
 /**
  * Retrieve the file that is included by the given inclusion directive
  * cursor.
  */
-clang_getIncludedFile :: proc(cursor: CXCursor) -> CXFile ---;
+getIncludedFile :: proc(cursor: CXCursor) -> CXFile ---;
 
 /**
  * @}
@@ -4476,18 +4476,18 @@ clang_getIncludedFile :: proc(cursor: CXCursor) -> CXFile ---;
  * Map a source location to the cursor that describes the entity at that
  * location in the source code.
  *
- * clang_getCursor() maps an arbitrary source location within a translation
+ * getCursor() maps an arbitrary source location within a translation
  * unit down to the most specific cursor that describes the entity at that
  * location. For example, given an expression \c x + y, invoking
- * clang_getCursor() with a source location pointing to "x" will return the
+ * getCursor() with a source location pointing to "x" will return the
  * cursor for "x"; similarly for "y". If the cursor points anywhere between
- * "x" or "y" (e.g., on the + or the whitespace around it), clang_getCursor()
+ * "x" or "y" (e.g., on the + or the whitespace around it), getCursor()
  * will return a cursor referring to the "+" expression.
  *
  * \returns a cursor representing the entity at the given source location, or
  * a NULL cursor if no such entity can be found.
  */
-clang_getCursor :: proc(tu: CXTranslationUnit, sourceLoc: CXSourceLocation) ->  CXCursor ---;
+getCursor :: proc(tu: CXTranslationUnit, sourceLoc: CXSourceLocation) ->  CXCursor ---;
 
 /**
  * Retrieve the physical location of the source constructor referenced
@@ -4499,7 +4499,7 @@ clang_getCursor :: proc(tu: CXTranslationUnit, sourceLoc: CXSourceLocation) ->  
  * The location of a reference is where that reference occurs within the
  * source code.
  */
-clang_getCursorLocation :: proc(cursor: CXCursor) -> CXSourceLocation ---;
+getCursorLocation :: proc(cursor: CXCursor) -> CXSourceLocation ---;
 
 /**
  * Retrieve the physical extent of the source construct referenced by
@@ -4512,7 +4512,7 @@ clang_getCursorLocation :: proc(cursor: CXCursor) -> CXSourceLocation ---;
  * the extent covers the location of the reference (e.g., where the referenced
  * entity was actually used).
  */
-clang_getCursorExtent :: proc(cursor: CXCursor) -> CXSourceRange ---;
+getCursorExtent :: proc(cursor: CXCursor) -> CXSourceRange ---;
 
 /**
  * @}
@@ -4527,7 +4527,7 @@ clang_getCursorExtent :: proc(cursor: CXCursor) -> CXSourceRange ---;
 /**
  * Retrieve the type of a CXCursor (if any).
  */
-clang_getCursorType :: proc(C: CXCursor) -> CXType ---;
+getCursorType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * Pretty-print the underlying type using the rules of the
@@ -4535,7 +4535,7 @@ clang_getCursorType :: proc(C: CXCursor) -> CXType ---;
  *
  * If the type is invalid, an empty string is returned.
  */
-clang_getTypeSpelling :: proc(CT: CXType) -> CXString ---;
+getTypeSpelling :: proc(CT: CXType) -> CXString ---;
 
 /**
  * Retrieve the underlying type of a typedef declaration.
@@ -4543,7 +4543,7 @@ clang_getTypeSpelling :: proc(CT: CXType) -> CXString ---;
  * If the cursor does not reference a typedef declaration, an invalid type is
  * returned.
  */
-clang_getTypedefDeclUnderlyingType :: proc(C: CXCursor) -> CXType ---;
+getTypedefDeclUnderlyingType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * Retrieve the integer type of an enum declaration.
@@ -4551,7 +4551,7 @@ clang_getTypedefDeclUnderlyingType :: proc(C: CXCursor) -> CXType ---;
  * If the cursor does not reference an enum declaration, an invalid type is
  * returned.
  */
-clang_getEnumDeclIntegerType :: proc(C: CXCursor) -> CXType ---;
+getEnumDeclIntegerType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * Retrieve the integer value of an enum constant declaration as a signed
@@ -4561,7 +4561,7 @@ clang_getEnumDeclIntegerType :: proc(C: CXCursor) -> CXType ---;
  * returned. Since this is also potentially a valid constant value, the kind of
  * the cursor must be verified before calling this function.
  */
-clang_getEnumConstantDeclValue :: proc(C: CXCursor) -> i64 ---;
+getEnumConstantDeclValue :: proc(C: CXCursor) -> i64 ---;
 
 /**
  * Retrieve the integer value of an enum constant declaration as an unsigned
@@ -4571,14 +4571,14 @@ clang_getEnumConstantDeclValue :: proc(C: CXCursor) -> i64 ---;
  * returned. Since this is also potentially a valid constant value, the kind of
  * the cursor must be verified before calling this function.
  */
-clang_getEnumConstantDeclUnsignedValue :: proc(C: CXCursor) -> u64 ---;
+getEnumConstantDeclUnsignedValue :: proc(C: CXCursor) -> u64 ---;
 
 /**
  * Retrieve the bit width of a bit field declaration as an integer.
  *
  * If a cursor that is not a bit field declaration is passed in, -1 is returned.
  */
-clang_getFieldDeclBitWidth :: proc(C: CXCursor) -> c.int ---;
+getFieldDeclBitWidth :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Retrieve the number of non-variadic arguments associated with a given
@@ -4587,7 +4587,7 @@ clang_getFieldDeclBitWidth :: proc(C: CXCursor) -> c.int ---;
  * The number of arguments can be determined for calls as well as for
  * declarations of functions or methods. For other cursors -1 is returned.
  */
-clang_Cursor_getNumArguments :: proc(C: CXCursor) -> c.int ---;
+Cursor_getNumArguments :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Retrieve the argument cursor of a function or method.
@@ -4596,7 +4596,7 @@ clang_Cursor_getNumArguments :: proc(C: CXCursor) -> c.int ---;
  * of functions or methods. For other cursors and for invalid indices, an
  * invalid cursor is returned.
  */
-clang_Cursor_getArgument :: proc(C: CXCursor, i: c.uint) -> CXCursor ---;
+Cursor_getArgument :: proc(C: CXCursor, i: c.uint) -> CXCursor ---;
 
 /**
  *Returns the number of template args of a function decl representing a
@@ -4614,7 +4614,7 @@ clang_Cursor_getArgument :: proc(C: CXCursor, i: c.uint) -> CXCursor ---;
  *
  * The value 3 would be returned from this call.
  */
-clang_Cursor_getNumTemplateArguments :: proc(C: CXCursor) -> c.int ---;
+Cursor_getNumTemplateArguments :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Retrieve the kind of the I'th template argument of the CXCursor C.
@@ -4632,7 +4632,7 @@ clang_Cursor_getNumTemplateArguments :: proc(C: CXCursor) -> c.int ---;
  * For I = 0, 1, and 2, Type, Integral, and Integral will be returned,
  * respectively.
  */
-clang_Cursor_getTemplateArgumentKind :: proc(C: CXCursor, I: c.uint) -> CXTemplateArgumentKind ---;
+Cursor_getTemplateArgumentKind :: proc(C: CXCursor, I: c.uint) -> CXTemplateArgumentKind ---;
 
 /**
  * Retrieve a CXType representing the type of a TemplateArgument of a
@@ -4652,7 +4652,7 @@ clang_Cursor_getTemplateArgumentKind :: proc(C: CXCursor, I: c.uint) -> CXTempla
  * If called with I = 0, "float", will be returned.
  * Invalid types will be returned for I == 1 or 2.
  */
-clang_Cursor_getTemplateArgumentType :: proc(C: CXCursor,I: c.uint) -> CXType ---;
+Cursor_getTemplateArgumentType :: proc(C: CXCursor,I: c.uint) -> CXType ---;
 
 /**
  * Retrieve the value of an Integral TemplateArgument (of a function
@@ -4671,7 +4671,7 @@ clang_Cursor_getTemplateArgumentType :: proc(C: CXCursor,I: c.uint) -> CXType --
  * If called with I = 1 or 2, -7 or true will be returned, respectively.
  * For I == 0, this function's behavior is undefined.
  */
-clang_Cursor_getTemplateArgumentValue :: proc(C: CXCursor, I: c.uint) -> i64 ---;
+Cursor_getTemplateArgumentValue :: proc(C: CXCursor, I: c.uint) -> i64 ---;
 
 /**
  * Retrieve the value of an Integral TemplateArgument (of a function
@@ -4691,7 +4691,7 @@ clang_Cursor_getTemplateArgumentValue :: proc(C: CXCursor, I: c.uint) -> i64 ---
  * For I == 0, this function's behavior is undefined.
  */
 
-clang_Cursor_getTemplateArgumentUnsignedValue :: proc(C: CXCursor, I: c.uint) -> u64 ---;
+Cursor_getTemplateArgumentUnsignedValue :: proc(C: CXCursor, I: c.uint) -> u64 ---;
 
 /**
  * Determine whether two CXTypes represent the same type.
@@ -4699,7 +4699,7 @@ clang_Cursor_getTemplateArgumentUnsignedValue :: proc(C: CXCursor, I: c.uint) ->
  * \returns non-zero if the CXTypes represent the same type and
  *          zero otherwise.
  */
-clang_equalTypes :: proc(A: CXType, B: CXType) -> c.uint ---;
+equalTypes :: proc(A: CXType, B: CXType) -> c.uint ---;
 
 /**
  * Return the canonical type for a CXType.
@@ -4709,61 +4709,61 @@ clang_equalTypes :: proc(A: CXType, B: CXType) -> c.uint ---;
  * type with all the "sugar" removed.  For example, if 'T' is a typedef
  * for 'int', the canonical type for 'T' would be 'int'.
  */
-clang_getCanonicalType :: proc(T: CXType) -> CXType ---;
+getCanonicalType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Determine whether a CXType has the "const" qualifier set,
  * without looking through typedefs that may have added "const" at a
  * different level.
  */
-clang_isConstQualifiedType :: proc(T: CXType) -> c.uint ---;
+isConstQualifiedType :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Determine whether a  CXCursor that is a macro, is
  * function like.
  */
-clang_Cursor_isMacroFunctionLike :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isMacroFunctionLike :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether a  CXCursor that is a macro, is a
  * builtin one.
  */
-clang_Cursor_isMacroBuiltin :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isMacroBuiltin :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether a  CXCursor that is a function declaration, is an
  * inline declaration.
  */
-clang_Cursor_isFunctionInlined :: proc(C: CXCursor) ---;
+Cursor_isFunctionInlined :: proc(C: CXCursor) ---;
 
 /**
  * Determine whether a CXType has the "volatile" qualifier set,
  * without looking through typedefs that may have added "volatile" at
  * a different level.
  */
-clang_isVolatileQualifiedType :: proc(T: CXType) -> c.uint ---;
+isVolatileQualifiedType :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Determine whether a CXType has the "restrict" qualifier set,
  * without looking through typedefs that may have added "restrict" at a
  * different level.
  */
-clang_isRestrictQualifiedType :: proc(T: CXType) -> c.uint ---;
+isRestrictQualifiedType :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Returns the address space of the given type.
  */
-clang_getAddressSpace :: proc(T: CXType) -> c.uint ---;
+getAddressSpace :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Returns the typedef name of the given type.
  */
-clang_getTypedefName :: proc(CT: CXType) -> CXString ---;
+getTypedefName :: proc(CT: CXType) -> CXString ---;
 
 /**
  * For pointer types, returns the type of the pointee.
  */
-clang_getPointeeType :: proc(T: CXType) -> CXType ---;
+getPointeeType :: proc(T: CXType) -> CXType ---;
 
 //@FIX
 
@@ -4771,36 +4771,36 @@ clang_getPointeeType :: proc(T: CXType) -> CXType ---;
 /**
  * Return the cursor for the declaration of the given type.
  */
- clang_getTypeDeclaration :: proc(T: CXType) -> CXCursor ---;
+ getTypeDeclaration :: proc(T: CXType) -> CXCursor ---;
 
 /**
  * Returns the Objective-C type encoding for the specified declaration.
  */
- clang_getDeclObjCTypeEncoding :: proc(C: CXCursor) -> CXString ---;
+ getDeclObjCTypeEncoding :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Returns the Objective-C type encoding for the specified CXType.
  */
- clang_Type_getObjCEncoding :: proc(type: CXType) -> CXString ---;
+ Type_getObjCEncoding :: proc(type: CXType) -> CXString ---;
 
 /**
  * Retrieve the spelling of a given CXTypeKind.
  */
- clang_getTypeKindSpelling :: proc(K: CXTypeKind) -> CXString ---;
+ getTypeKindSpelling :: proc(K: CXTypeKind) -> CXString ---;
 
 /**
  * Retrieve the calling convention associated with a function type.
  *
  * If a non-function type is passed in, CXCallingConv_Invalid is returned.
  */
- clang_getFunctionTypeCallingConv :: proc(T: CXType) -> CXCallingConv ---;
+ getFunctionTypeCallingConv :: proc(T: CXType) -> CXCallingConv ---;
 
 /**
  * Retrieve the return type associated with a function type.
  *
  * If a non-function type is passed in, an invalid type is returned.
  */
- clang_getResultType :: proc(T: CXType) -> CXType ---;
+ getResultType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Retrieve the exception specification type associated with a function type.
@@ -4808,7 +4808,7 @@ clang_getPointeeType :: proc(T: CXType) -> CXType ---;
  *
  * If a non-function type is passed in, an error code of -1 is returned.
  */
- clang_getExceptionSpecificationType :: proc(T: CXType) -> c.int ---;
+ getExceptionSpecificationType :: proc(T: CXType) -> c.int ---;
 
 /**
  * Retrieve the number of non-variadic parameters associated with a
@@ -4816,7 +4816,7 @@ clang_getPointeeType :: proc(T: CXType) -> CXType ---;
  *
  * If a non-function type is passed in, -1 is returned.
  */
- clang_getNumArgTypes :: proc(T: CXType) -> c.int ---;
+ getNumArgTypes :: proc(T: CXType) -> c.int ---;
 
 /**
  * Retrieve the type of a parameter of a function type.
@@ -4824,21 +4824,21 @@ clang_getPointeeType :: proc(T: CXType) -> CXType ---;
  * If a non-function type is passed in or the function does not have enough
  * parameters, an invalid type is returned.
  */
-clang_getArgType :: proc(T: CXType, i: c.uint) -> CXType ---;
+getArgType :: proc(T: CXType, i: c.uint) -> CXType ---;
 
 /**
  * Retrieves the base type of the ObjCObjectType.
  *
  * If the type is not an ObjC object, an invalid type is returned.
  */
-clang_Type_getObjCObjectBaseType :: proc(T: CXType) -> CXType ---;
+Type_getObjCObjectBaseType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Retrieve the number of protocol references associated with an ObjC object/id.
  *
  * If the type is not an ObjC object, 0 is returned.
  */
-clang_Type_getNumObjCProtocolRefs :: proc(T: CXType) -> c.uint ---;
+Type_getNumObjCProtocolRefs :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Retrieve the decl for a protocol reference for an ObjC object/id.
@@ -4846,14 +4846,14 @@ clang_Type_getNumObjCProtocolRefs :: proc(T: CXType) -> c.uint ---;
  * If the type is not an ObjC object or there are not enough protocol
  * references, an invalid cursor is returned.
  */
-clang_Type_getObjCProtocolDecl :: proc(T: CXType, i: c.uint) -> CXCursor ---;
+Type_getObjCProtocolDecl :: proc(T: CXType, i: c.uint) -> CXCursor ---;
 
 /**
  * Retrieve the number of type arguments associated with an ObjC object.
  *
  * If the type is not an ObjC object, 0 is returned.
  */
-clang_Type_getNumObjCTypeArgs :: proc(T: CXType) -> c.uint ---;
+Type_getNumObjCTypeArgs :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Retrieve a type argument associated with an ObjC object.
@@ -4861,19 +4861,19 @@ clang_Type_getNumObjCTypeArgs :: proc(T: CXType) -> c.uint ---;
  * If the type is not an ObjC or the index is not valid,
  * an invalid type is returned.
  */
-clang_Type_getObjCTypeArg :: proc(T: CXType, i: c.uint) -> CXType ---;
+Type_getObjCTypeArg :: proc(T: CXType, i: c.uint) -> CXType ---;
 
 /**
  * Return 1 if the CXType is a variadic function type, and 0 otherwise.
  */
-clang_isFunctionTypeVariadic :: proc(T: CXType) -> c.uint ---;
+isFunctionTypeVariadic :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Retrieve the return type associated with a given cursor.
  *
  * This only returns a valid type if the cursor refers to a function or method.
  */
-clang_getCursorResultType :: proc(C: CXCursor) -> CXType ---;
+getCursorResultType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * Retrieve the exception specification type associated with a given cursor.
@@ -4882,13 +4882,13 @@ clang_getCursorResultType :: proc(C: CXCursor) -> CXType ---;
  * This only returns a valid result if the cursor refers to a function or
  * method.
  */
-clang_getCursorExceptionSpecificationType :: proc(C: CXCursor) -> c.int ---;
+getCursorExceptionSpecificationType :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Return 1 if the CXType is a POD (plain old data) type, and 0
  *  otherwise.
  */
-clang_isPODType :: proc(T: CXType) -> c.uint ---;
+isPODType :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Return the element type of an array, complex, or vector type.
@@ -4896,7 +4896,7 @@ clang_isPODType :: proc(T: CXType) -> c.uint ---;
  * If a type is passed in that is not an array, complex, or vector type,
  * an invalid type is returned.
  */
-clang_getElementType :: proc(T: CXType) -> CXType ---;
+getElementType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Return the number of elements of an array or vector type.
@@ -4904,28 +4904,28 @@ clang_getElementType :: proc(T: CXType) -> CXType ---;
  * If a type is passed in that is not an array or vector type,
  * -1 is returned.
  */
-clang_getNumElements :: proc(T: CXType) -> i64 ---;
+getNumElements :: proc(T: CXType) -> i64 ---;
 
 /**
  * Return the element type of an array type.
  *
  * If a non-array type is passed in, an invalid type is returned.
  */
-clang_getArrayElementType :: proc(T: CXType) -> CXType ---;
+getArrayElementType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Return the array size of a constant array.
  *
  * If a non-array type is passed in, -1 is returned.
  */
-clang_getArraySize :: proc(T: CXType) -> i64 ---;
+getArraySize :: proc(T: CXType) -> i64 ---;
 
 /**
  * Retrieve the type named by the qualified-id.
  *
  * If a non-elaborated type is passed in, an invalid type is returned.
  */
-clang_Type_getNamedType :: proc(T: CXType) -> CXType ---;
+Type_getNamedType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Determine if a typedef is 'transparent' tag.
@@ -4935,12 +4935,12 @@ clang_Type_getNamedType :: proc(T: CXType) -> CXType ---;
  *
  * \returns non-zero if transparent and zero otherwise.
  */
-clang_Type_isTransparentTagTypedef :: proc(T: CXType) -> c.uint ---;
+Type_isTransparentTagTypedef :: proc(T: CXType) -> c.uint ---;
 
 /**
  * Retrieve the nullability kind of a pointer type.
  */
-clang_Type_getNullability :: proc(T: CXType) -> CXTypeNullabilityKind ---;
+Type_getNullability :: proc(T: CXType) -> CXTypeNullabilityKind ---;
 
 /**
  * Return the alignment of a type in bytes as per C++[expr.alignof]
@@ -4954,14 +4954,14 @@ clang_Type_getNullability :: proc(T: CXType) -> CXTypeNullabilityKind ---;
  * If the type declaration is not a constant size type,
  *   CXTypeLayoutError_NotConstantSize is returned.
  */
-clang_Type_getAlignOf :: proc(T: CXType) -> i64 ---;
+Type_getAlignOf :: proc(T: CXType) -> i64 ---;
 
 /**
  * Return the class type of an member pointer type.
  *
  * If a non-member-pointer type is passed in, an invalid type is returned.
  */
-clang_Type_getClassType :: proc(T: CXType) -> CXType ---;
+Type_getClassType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Return the size of a type in bytes as per C++[expr.sizeof] standard.
@@ -4972,7 +4972,7 @@ clang_Type_getClassType :: proc(T: CXType) -> CXType ---;
  * If the type declaration is a dependent type, CXTypeLayoutError_Dependent is
  *   returned.
  */
-clang_Type_getSizeOf :: proc(T: CXType) -> i64 ---;
+Type_getSizeOf :: proc(T: CXType) -> i64 ---;
 
 /**
  * Return the offset of a field named S in a record of type T in bits
@@ -4987,21 +4987,21 @@ clang_Type_getSizeOf :: proc(T: CXType) -> i64 ---;
  * If the field's name S is not found,
  *   CXTypeLayoutError_InvalidFieldName is returned.
  */
-clang_Type_getOffsetOf :: proc(T: CXType, S: cstring) -> i64 ---;
+Type_getOffsetOf :: proc(T: CXType, S: cstring) -> i64 ---;
 
 /**
  * Return the type that was modified by this attributed type.
  *
  * If the type is not an attributed type, an invalid type is returned.
  */
-clang_Type_getModifiedType :: proc(T: CXType) -> CXType ---;
+Type_getModifiedType :: proc(T: CXType) -> CXType ---;
 
 /**
  * Gets the type contained by this atomic type.
  *
  * If a non-atomic type is passed in, an invalid type is returned.
  */
-clang_Type_getValueType :: proc(CT: CXType) -> CXType ---;
+Type_getValueType :: proc(CT: CXType) -> CXType ---;
 
 /**
  * Return the offset of the field represented by the Cursor.
@@ -5016,31 +5016,31 @@ clang_Type_getValueType :: proc(CT: CXType) -> CXType ---;
  * If the field's name S is not found,
  *   CXTypeLayoutError_InvalidFieldName is returned.
  */
-clang_Cursor_getOffsetOfField :: proc(C: CXCursor) -> i64 ---;
+Cursor_getOffsetOfField :: proc(C: CXCursor) -> i64 ---;
 
 /**
  * Determine whether the given cursor represents an anonymous
  * tag or namespace
  */
-clang_Cursor_isAnonymous :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isAnonymous :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether the given cursor represents an anonymous record
  * declaration.
  */
-clang_Cursor_isAnonymousRecordDecl :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isAnonymousRecordDecl :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine whether the given cursor represents an inline namespace
  * declaration.
  */
-clang_Cursor_isInlineNamespace :: proc(C: CXCursor) -> c.uint ---; 
+Cursor_isInlineNamespace :: proc(C: CXCursor) -> c.uint ---; 
 
 /**
  * Returns the number of template arguments for given template
  * specialization, or -1 if type \c T is not a template specialization.
  */
-clang_Type_getNumTemplateArguments :: proc(T: CXType) -> c.int ---;
+Type_getNumTemplateArguments :: proc(T: CXType) -> c.int ---;
 
 /**
  * Returns the type template argument of a template class specialization
@@ -5049,7 +5049,7 @@ clang_Type_getNumTemplateArguments :: proc(T: CXType) -> c.int ---;
  * This function only returns template type arguments and does not handle
  * template template arguments or variadic packs.
  */
-clang_Type_getTemplateArgumentAsType :: proc(T: CXType, i: c.uint) -> CXType ---;
+Type_getTemplateArgumentAsType :: proc(T: CXType, i: c.uint) -> CXType ---;
 
 /**
  * Retrieve the ref-qualifier kind of a function or method.
@@ -5057,19 +5057,19 @@ clang_Type_getTemplateArgumentAsType :: proc(T: CXType, i: c.uint) -> CXType ---
  * The ref-qualifier is returned for C++ functions or methods. For other types
  * or non-C++ declarations, CXRefQualifier_None is returned.
  */
- clang_Type_getCXXRefQualifier :: proc(T: CXType) -> CXRefQualifierKind ---;
+ Type_getCXXRefQualifier :: proc(T: CXType) -> CXRefQualifierKind ---;
 
 /**
  * Returns non-zero if the cursor specifies a Record member that is a
  *   bitfield.
  */
-clang_Cursor_isBitField :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isBitField :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Returns 1 if the base class specified by the cursor with kind
  *   CX_CXXBaseSpecifier is virtual.
  */
-clang_isVirtualBase :: proc(C: CXCursor) -> c.uint ---;
+isVirtualBase :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Returns the access control level for the referenced object.
@@ -5078,7 +5078,7 @@ clang_isVirtualBase :: proc(C: CXCursor) -> c.uint ---;
  * its parent scope is returned. Otherwise, if the cursor refers to a base
  * specifier or access specifier, the specifier itself is returned.
  */
-clang_getCXXAccessSpecifier :: proc(C: CXCursor) -> CX_CXXAccessSpecifier ---;
+getCXXAccessSpecifier :: proc(C: CXCursor) -> CX_CXXAccessSpecifier ---;
 
 /**
  * Returns the storage class for a function or variable declaration.
@@ -5086,7 +5086,7 @@ clang_getCXXAccessSpecifier :: proc(C: CXCursor) -> CX_CXXAccessSpecifier ---;
  * If the passed in Cursor is not a function or variable declaration,
  * CX_SC_Invalid is returned else the storage class.
  */
-clang_Cursor_getStorageClass :: proc(C: CXCursor) -> CX_StorageClass ---;
+Cursor_getStorageClass :: proc(C: CXCursor) -> CX_StorageClass ---;
 
 /**
  * Determine the number of overloaded declarations referenced by a
@@ -5097,7 +5097,7 @@ clang_Cursor_getStorageClass :: proc(C: CXCursor) -> CX_StorageClass ---;
  * \returns The number of overloaded declarations referenced by \c cursor. If it
  * is not a \c CXCursor_OverloadedDeclRef cursor, returns 0.
  */
-clang_getNumOverloadedDecls :: proc(cursor: CXCursor) -> c.uint ---;
+getNumOverloadedDecls :: proc(cursor: CXCursor) -> c.uint ---;
 
 /**
  * Retrieve a cursor for one of the overloaded declarations referenced
@@ -5111,9 +5111,9 @@ clang_getNumOverloadedDecls :: proc(cursor: CXCursor) -> c.uint ---;
  * \returns A cursor representing the declaration referenced by the given
  * \c cursor at the specified \c index. If the cursor does not have an
  * associated set of overloaded declarations, or if the index is out of bounds,
- * returns \c clang_getNullCursor();
+ * returns \c getNullCursor();
  */
-clang_getOverloadedDecl :: proc(cursor: CXCursor, index: c.uint) -> CXCursor ---;
+getOverloadedDecl :: proc(cursor: CXCursor, index: c.uint) -> CXCursor ---;
 
 /**
  * @}
@@ -5130,7 +5130,7 @@ clang_getOverloadedDecl :: proc(cursor: CXCursor, index: c.uint) -> CXCursor ---
  *  this function returns the collection element type.
  *
  */
-clang_getIBOutletCollectionType :: proc(C: CXCursor) -> CXType ---;
+getIBOutletCollectionType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * @}
@@ -5167,7 +5167,7 @@ clang_getIBOutletCollectionType :: proc(C: CXCursor) -> CXType ---;
  * \returns a non-zero value if the traversal was terminated
  * prematurely by the visitor returning \c CXChildVisit_Break.
  */
-clang_visitChildren :: proc (parent: CXCursor, visitor: CXCursorVisitor, client_data: CXClientData) -> c.uint ---;
+visitChildren :: proc (parent: CXCursor, visitor: CXCursorVisitor, client_data: CXClientData) -> c.uint ---;
 
 /**
  * @}
@@ -5193,46 +5193,46 @@ clang_visitChildren :: proc (parent: CXCursor, visitor: CXCursorVisitor, client_
  * compared across translation units to determine, e.g., when references in
  * one translation refer to an entity defined in another translation unit.
  */
-clang_getCursorUSR :: proc(C: CXCursor) -> CXString ---;
+getCursorUSR :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C class.
  */
-clang_constructUSR_ObjCClass :: proc(class_name: cstring) -> CXString ---;
+constructUSR_ObjCClass :: proc(class_name: cstring) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C category.
  */
-clang_constructUSR_ObjCCategory :: proc(class_name: cstring, category_name: cstring) -> CXString ---;
+constructUSR_ObjCCategory :: proc(class_name: cstring, category_name: cstring) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C protocol.
  */
 
-clang_constructUSR_ObjCProtocol :: proc(protocol_name: cstring) -> CXString ---;
+constructUSR_ObjCProtocol :: proc(protocol_name: cstring) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C instance variable and
  *   the USR for its containing class.
  */
-clang_constructUSR_ObjCIvar :: proc(name: cstring, classUSR: CXString) -> CXString ---;
+constructUSR_ObjCIvar :: proc(name: cstring, classUSR: CXString) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C method and
  *   the USR for its containing class.
  */
-clang_constructUSR_ObjCMethod :: proc(name: cstring, isInstanceMethod: c.uint, classUSR: CXString) -> CXString ---;
+constructUSR_ObjCMethod :: proc(name: cstring, isInstanceMethod: c.uint, classUSR: CXString) -> CXString ---;
 
 /**
  * Construct a USR for a specified Objective-C property and the USR
  *  for its containing class.
  */
- clang_constructUSR_ObjCProperty :: proc(property: cstring, classUSR: CXString) -> CXString ---;
+ constructUSR_ObjCProperty :: proc(property: cstring, classUSR: CXString) -> CXString ---;
 
 /**
  * Retrieve a name for the entity referenced by this cursor.
  */
-clang_getCursorSpelling :: proc(C: CXCursor) -> CXString ---;
+getCursorSpelling :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Retrieve a range for a piece that forms the cursors spelling name.
@@ -5245,30 +5245,30 @@ clang_getCursorSpelling :: proc(C: CXCursor) -> CXString ---;
  *
  * \param options Reserved.
  */
-clang_Cursor_getSpellingNameRange :: proc(C: CXCursor, pieceIndex: c.uint, options: c.uint) ->  CXSourceRange ---;
+Cursor_getSpellingNameRange :: proc(C: CXCursor, pieceIndex: c.uint, options: c.uint) ->  CXSourceRange ---;
 
 /**
  * Get a property value for the given printing policy.
  */
-clang_PrintingPolicy_getProperty :: proc (Policy: CXPrintingPolicy, Property: CXPrintingPolicyProperty) -> c.uint ---;
+PrintingPolicy_getProperty :: proc (Policy: CXPrintingPolicy, Property: CXPrintingPolicyProperty) -> c.uint ---;
 
 /**
  * Set a property value for the given printing policy.
  */
-clang_PrintingPolicy_setProperty :: proc(Policy: CXPrintingPolicy, Property: CXPrintingPolicyProperty, Value: c.uint) ---;
+PrintingPolicy_setProperty :: proc(Policy: CXPrintingPolicy, Property: CXPrintingPolicyProperty, Value: c.uint) ---;
 
 /**
  * Retrieve the default policy for the cursor.
  *
  * The policy should be released after use with \c
- * clang_PrintingPolicy_dispose.
+ * PrintingPolicy_dispose.
  */
- clang_getCursorPrintingPolicy :: proc(C: CXCursor) -> CXPrintingPolicy ---;
+ getCursorPrintingPolicy :: proc(C: CXCursor) -> CXPrintingPolicy ---;
 
 /**
  * Release a printing policy.
  */
-clang_PrintingPolicy_dispose :: proc(Policy: CXPrintingPolicy) ---;
+PrintingPolicy_dispose :: proc(Policy: CXPrintingPolicy) ---;
 
 /**
  * Pretty print declarations.
@@ -5281,7 +5281,7 @@ clang_PrintingPolicy_dispose :: proc(Policy: CXPrintingPolicy) ---;
  * \returns The pretty printed declaration or the empty string for
  * other cursors.
  */
-clang_getCursorPrettyPrinted :: proc(Cursor: CXCursor, Policy: CXPrintingPolicy) -> CXString ---;
+getCursorPrettyPrinted :: proc(Cursor: CXCursor, Policy: CXPrintingPolicy) -> CXString ---;
 
 /**
  * Retrieve the display name for the entity referenced by this cursor.
@@ -5290,7 +5290,7 @@ clang_getCursorPrettyPrinted :: proc(Cursor: CXCursor, Policy: CXPrintingPolicy)
  * such as the parameters of a function or template or the arguments of a
  * class template specialization.
  */
-clang_getCursorDisplayName :: proc(C: CXCursor) -> CXString ---;
+getCursorDisplayName :: proc(C: CXCursor) -> CXString ---;
 
 /** For a cursor that is a reference, retrieve a cursor representing the
  * entity that it references.
@@ -5302,7 +5302,7 @@ clang_getCursorDisplayName :: proc(C: CXCursor) -> CXString ---;
  * definition, it returns that declaration or definition unchanged.
  * Otherwise, returns the NULL cursor.
  */
-clang_getCursorReferenced :: proc(C: CXCursor) -> CXCursor ---;
+getCursorReferenced :: proc(C: CXCursor) -> CXCursor ---;
 
 /**
  *  For a cursor that is either a reference to or a declaration
@@ -5321,7 +5321,7 @@ clang_getCursorReferenced :: proc(C: CXCursor) -> CXCursor ---;
  *  \endcode
  *
  *  there are three declarations of the function "f", but only the
- *  second one is a definition. The clang_getCursorDefinition()
+ *  second one is a definition. The getCursorDefinition()
  *  function will take any cursor pointing to a declaration of "f"
  *  (the first or fourth lines of the example) or a cursor referenced
  *  that uses "f" (the call to "f' inside "g") and will return a
@@ -5332,13 +5332,13 @@ clang_getCursorReferenced :: proc(C: CXCursor) -> CXCursor ---;
  *  e.g., because there is no definition of that entity within this
  *  translation unit, returns a NULL cursor.
  */
-clang_getCursorDefinition :: proc(CXCursor) -> CXCursor ---;
+getCursorDefinition :: proc(CXCursor) -> CXCursor ---;
 
 /**
  * Determine whether the declaration pointed to by this cursor
  * is also a definition of that entity.
  */
-clang_isCursorDefinition :: proc(C: CXCursor) -> c.uint ---;
+isCursorDefinition :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Retrieve the canonical cursor corresponding to the given cursor.
@@ -5364,20 +5364,20 @@ clang_isCursorDefinition :: proc(C: CXCursor) -> c.uint ---;
  *
  * \returns The canonical cursor for the entity referred to by the given cursor.
  */
-clang_getCanonicalCursor :: proc(C: CXCursor) -> CXCursor ---;
+getCanonicalCursor :: proc(C: CXCursor) -> CXCursor ---;
 
 /**
  * If the cursor points to a selector identifier in an Objective-C
  * method or message expression, this returns the selector index.
  *
- * After getting a cursor with #clang_getCursor, this can be called to
+ * After getting a cursor with #getCursor, this can be called to
  * determine if the location points to a selector identifier.
  *
  * \returns The selector index if the cursor is an Objective-C method or message
  * expression and the cursor is pointing to a selector identifier, or -1
  * otherwise.
  */
-clang_Cursor_getObjCSelectorIndex :: proc(C: CXCursor) -> c.int ---;
+Cursor_getObjCSelectorIndex :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Given a cursor pointing to a C++ method call or an Objective-C
@@ -5390,13 +5390,13 @@ clang_Cursor_getObjCSelectorIndex :: proc(C: CXCursor) -> c.int ---;
  * If the method/message is "static" or the cursor does not point to a
  * method/message, it will return zero.
  */
-clang_Cursor_isDynamicCall :: proc(C: CXCursor) -> c.int ---;
+Cursor_isDynamicCall :: proc(C: CXCursor) -> c.int ---;
 
 /**
  * Given a cursor pointing to an Objective-C message or property
  * reference, or C++ method call, returns the CXType of the receiver.
  */
-clang_Cursor_getReceiverType :: proc(C: CXCursor) -> CXType ---;
+Cursor_getReceiverType :: proc(C: CXCursor) -> CXType ---;
 
 /**
  * Given a cursor that represents a property declaration, return the
@@ -5405,19 +5405,19 @@ clang_Cursor_getReceiverType :: proc(C: CXCursor) -> CXType ---;
  *
  * \param reserved Reserved for future use, pass 0.
  */
-clang_Cursor_getObjCPropertyAttributes :: proc(C: CXCursor, reserved: c.uint) -> c.uint ---;
+Cursor_getObjCPropertyAttributes :: proc(C: CXCursor, reserved: c.uint) -> c.uint ---;
 
 /**
  * Given a cursor that represents a property declaration, return the
  * name of the method that implements the getter.
  */
-clang_Cursor_getObjCPropertyGetterName :: proc(C: CXCursor) -> CXString ---;
+Cursor_getObjCPropertyGetterName :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Given a cursor that represents a property declaration, return the
  * name of the method that implements the setter, if any.
  */
-clang_Cursor_getObjCPropertySetterName :: proc(C: CXCursor) -> CXString ---;
+Cursor_getObjCPropertySetterName :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Given a cursor that represents an Objective-C method or parameter
@@ -5425,19 +5425,19 @@ clang_Cursor_getObjCPropertySetterName :: proc(C: CXCursor) -> CXString ---;
  * type or the parameter respectively. The bits are formed from
  * CXObjCDeclQualifierKind.
  */
-clang_Cursor_getObjCDeclQualifiers :: proc(C: CXCursor) -> c.uint ---;
+Cursor_getObjCDeclQualifiers :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Given a cursor that represents an Objective-C method or property
  * declaration, return non-zero if the declaration was affected by "\@optional".
  * Returns zero if the cursor is not such a declaration or it is "\@required".
  */
-clang_Cursor_isObjCOptional :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isObjCOptional :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Returns non-zero if the given cursor is a variadic function or method.
  */
-clang_Cursor_isVariadic :: proc(C: CXCursor) -> c.uint ---;
+Cursor_isVariadic :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Returns non-zero if the given cursor points to a symbol marked with
@@ -5452,27 +5452,27 @@ clang_Cursor_isVariadic :: proc(C: CXCursor) -> c.uint ---;
  * \param isGenerated If non-NULL, and the attribute is present, will be set to
  * non-zero if the 'generated_declaration' is set in the attribute.
  */
-clang_Cursor_isExternalSymbol :: proc(C: CXCursor, language: ^CXString, definedIn: ^CXString, isGenerated: ^c.uint) -> c.uint ---; 
+Cursor_isExternalSymbol :: proc(C: CXCursor, language: ^CXString, definedIn: ^CXString, isGenerated: ^c.uint) -> c.uint ---; 
 
 /**
  * Given a cursor that represents a declaration, return the associated
  * comment's source range.  The range may include multiple consecutive comments
  * with whitespace in between.
  */
-clang_Cursor_getCommentRange :: proc(C: CXCursor) -> CXSourceRange ---;
+Cursor_getCommentRange :: proc(C: CXCursor) -> CXSourceRange ---;
 
 /**
  * Given a cursor that represents a declaration, return the associated
  * comment text, including comment markers.
  */
-clang_Cursor_getRawCommentText :: proc(C: CXCursor) -> CXString ---;
+Cursor_getRawCommentText :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Given a cursor that represents a documentable entity (e.g.,
  * declaration), return the associated \paragraph; otherwise return the
  * first paragraph.
  */
-clang_Cursor_getBriefCommentText :: proc(C: CXCursor) -> CXString ---;
+Cursor_getBriefCommentText :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * @}
@@ -5486,19 +5486,19 @@ clang_Cursor_getBriefCommentText :: proc(C: CXCursor) -> CXString ---;
 /**
  * Retrieve the CXString representing the mangled name of the cursor.
  */
-clang_Cursor_getMangling :: proc(C: CXCursor) -> CXString ---;
+Cursor_getMangling :: proc(C: CXCursor) -> CXString ---;
 
 /**
  * Retrieve the CXStrings representing the mangled symbols of the C++
  * constructor or destructor at the cursor.
  */
-clang_Cursor_getCXXManglings :: proc(C: CXCursor) -> ^CXStringSet ---;
+Cursor_getCXXManglings :: proc(C: CXCursor) -> ^CXStringSet ---;
 
 /**
  * Retrieve the CXStrings representing the mangled symbols of the ObjC
  * class interface or implementation at the cursor.
  */
-clang_Cursor_getObjCManglings :: proc(C: CXCursor) -> ^CXStringSet ---;
+Cursor_getObjCManglings :: proc(C: CXCursor) -> ^CXStringSet ---;
 
 /**
  * @}
@@ -5515,20 +5515,20 @@ clang_Cursor_getObjCManglings :: proc(C: CXCursor) -> ^CXStringSet ---;
 /**
  * Given a CXCursor_ModuleImportDecl cursor, return the associated module.
  */
-clang_Cursor_getModule :: proc(C: CXCursor) -> CXModule ---;
+Cursor_getModule :: proc(C: CXCursor) -> CXModule ---;
 
 /**
  * Given a CXFile header file, return the module that contains it, if one
  * exists.
  */
-clang_getModuleForFile :: proc(tu: CXTranslationUnit, file: CXFile) -> CXModule ---;
+getModuleForFile :: proc(tu: CXTranslationUnit, file: CXFile) -> CXModule ---;
 
 /**
  * \param Module a module object.
  *
  * \returns the module file where the provided module object came from.
  */
-clang_Module_getASTFile :: proc(Module: CXModule) -> CXFile ---;
+Module_getASTFile :: proc(Module: CXModule) -> CXFile ---;
 
 /**
  * \param Module a module object.
@@ -5536,7 +5536,7 @@ clang_Module_getASTFile :: proc(Module: CXModule) -> CXFile ---;
  * \returns the parent of a sub-module or NULL if the given module is top-level,
  * e.g. for 'std.vector' it will return the 'std' module.
  */
-clang_Module_getParent :: proc(Module: CXModule) -> CXModule ---;
+Module_getParent :: proc(Module: CXModule) -> CXModule ---;
 
 /**
  * \param Module a module object.
@@ -5544,28 +5544,28 @@ clang_Module_getParent :: proc(Module: CXModule) -> CXModule ---;
  * \returns the name of the module, e.g. for the 'std.vector' sub-module it
  * will return "vector".
  */
-clang_Module_getName :: proc(Module: CXModule) -> CXString ---;
+Module_getName :: proc(Module: CXModule) -> CXString ---;
 
 /**
  * \param Module a module object.
  *
  * \returns the full name of the module, e.g. "std.vector".
  */
-clang_Module_getFullName :: proc(Module: CXModule) -> CXString ---;
+Module_getFullName :: proc(Module: CXModule) -> CXString ---;
 
 /**
  * \param Module a module object.
  *
  * \returns non-zero if the module is a system one.
  */
-clang_Module_isSystem :: proc(Module: CXModule) -> c.int ---;
+Module_isSystem :: proc(Module: CXModule) -> c.int ---;
 
 /**
  * \param Module a module object.
  *
  * \returns the number of top level headers associated with this module.
  */
-clang_Module_getNumTopLevelHeaders :: proc(TU:CXTranslationUnit, Module: CXModule) -> c.uint ---;
+Module_getNumTopLevelHeaders :: proc(TU:CXTranslationUnit, Module: CXModule) -> c.uint ---;
 
 /**
  * \param Module a module object.
@@ -5575,7 +5575,7 @@ clang_Module_getNumTopLevelHeaders :: proc(TU:CXTranslationUnit, Module: CXModul
  * \returns the specified top level header associated with the module.
  */
 
-clang_Module_getTopLevelHeader :: proc(TU: CXTranslationUnit, Module: CXModule, Index: c.uint) -> CXFile ---; 
+Module_getTopLevelHeader :: proc(TU: CXTranslationUnit, Module: CXModule, Index: c.uint) -> CXFile ---; 
 
 /**
  * @}
@@ -5594,68 +5594,68 @@ clang_Module_getTopLevelHeader :: proc(TU: CXTranslationUnit, Module: CXModule, 
  * Determine if a C++ constructor is a converting constructor.
  */
 
-clang_CXXConstructor_isConvertingConstructor :: proc(C: CXCursor) -> c.uint ---;
+CXXConstructor_isConvertingConstructor :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ constructor is a copy constructor.
  */
-clang_CXXConstructor_isCopyConstructor :: proc(C: CXCursor) -> c.uint ---;
+CXXConstructor_isCopyConstructor :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ constructor is the default constructor.
  */
-clang_CXXConstructor_isDefaultConstructor :: proc(C: CXCursor) -> c.uint ---;
+CXXConstructor_isDefaultConstructor :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ constructor is a move constructor.
  */
-clang_CXXConstructor_isMoveConstructor :: proc(C: CXCursor) -> c.uint ---;
+CXXConstructor_isMoveConstructor :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ field is declared 'mutable'.
  */
-clang_CXXField_isMutable :: proc(C: CXCursor) -> c.uint ---; 
+CXXField_isMutable :: proc(C: CXCursor) -> c.uint ---; 
 
 /**
  * Determine if a C++ method is declared '= default'.
  */
-clang_CXXMethod_isDefaulted :: proc(C: CXCursor) -> c.uint ---;
+CXXMethod_isDefaulted :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ member function or member function template is
  * pure virtual.
  */
-clang_CXXMethod_isPureVirtual :: proc(C: CXCursor) -> c.uint ---;
+CXXMethod_isPureVirtual :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ member function or member function template is
  * declared 'static'.
  */
-clang_CXXMethod_isStatic :: proc(C: CXCursor) -> c.uint ---;
+CXXMethod_isStatic :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ member function or member function template is
  * explicitly declared 'virtual' or if it overrides a virtual method from
  * one of the base classes.
  */
-clang_CXXMethod_isVirtual :: proc(C: CXCursor) -> c.uint ---;
+CXXMethod_isVirtual :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ record is abstract, i.e. whether a class or struct
  * has a pure virtual member function.
  */
-clang_CXXRecord_isAbstract :: proc(C: CXCursor) -> c.uint ---;
+CXXRecord_isAbstract :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if an enum declaration refers to a scoped enum.
  */
-clang_EnumDecl_isScoped :: proc(C: CXCursor) -> c.uint ---;
+EnumDecl_isScoped :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Determine if a C++ member function or member function template is
  * declared 'const'.
  */
-clang_CXXMethod_isConst :: proc(C: CXCursor) -> c.uint ---;
+CXXMethod_isConst :: proc(C: CXCursor) -> c.uint ---;
 
 /**
  * Given a cursor that represents a template, determine
@@ -5674,7 +5674,7 @@ clang_CXXMethod_isConst :: proc(C: CXCursor) -> c.uint ---;
  * by instantiating the template \p C. If \p C is not a template, returns
  * \c CXCursor_NoDeclFound.
  */
- clang_getTemplateCursorKind :: proc(C: CXCursor) -> CXCursorKind ---;
+ getTemplateCursorKind :: proc(C: CXCursor) -> CXCursorKind ---;
 
 /**
  * Given a cursor that may represent a specialization or instantiation
@@ -5704,7 +5704,7 @@ clang_CXXMethod_isConst :: proc(C: CXCursor) -> c.uint ---;
  * template or a member thereof, the template or member that it specializes or
  * from which it was instantiated. Otherwise, returns a NULL cursor.
  */
-clang_getSpecializedCursorTemplate :: proc(C: CXCursor) -> CXCursor ---;
+getSpecializedCursorTemplate :: proc(C: CXCursor) -> CXCursor ---;
 
 /**
  * Given a cursor that references something else, return the source range
@@ -5724,7 +5724,7 @@ clang_getSpecializedCursorTemplate :: proc(C: CXCursor) -> CXCursor ---;
  * \returns The piece of the name pointed to by the given cursor. If there is no
  * name, or if the PieceIndex is out-of-range, a null-cursor will be returned.
  */
-clang_getCursorReferenceNameRange :: proc(C: CXCursor, NameFlags: c.uint, PieceIndex: c.uint) -> CXSourceRange ---;
+getCursorReferenceNameRange :: proc(C: CXCursor, NameFlags: c.uint, PieceIndex: c.uint) -> CXSourceRange ---;
 
 /**
  * @}
@@ -5748,15 +5748,15 @@ clang_getCursorReferenceNameRange :: proc(C: CXCursor, NameFlags: c.uint, PieceI
  * \param Location the source location with which the token starts.
  *
  * \returns The token starting with the given location or NULL if no such token
- * exist. The returned pointer must be freed with clang_disposeTokens before the
+ * exist. The returned pointer must be freed with disposeTokens before the
  * translation unit is destroyed.
  */
-clang_getToken :: proc(TU: CXTranslationUnit, Location: CXSourceLocation) -> CXToken ---; 
+getToken :: proc(TU: CXTranslationUnit, Location: CXSourceLocation) -> CXToken ---; 
 
 /**
  * Determine the kind of the given token.
  */
-clang_getTokenKind :: proc(tk: CXToken) -> CXTokenKind ---;
+getTokenKind :: proc(tk: CXToken) -> CXTokenKind ---;
 
 /**
  * Determine the spelling of the given token.
@@ -5764,17 +5764,17 @@ clang_getTokenKind :: proc(tk: CXToken) -> CXTokenKind ---;
  * The spelling of a token is the textual representation of that token, e.g.,
  * the text of an identifier or keyword.
  */
-clang_getTokenSpelling :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXString ---;
+getTokenSpelling :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXString ---;
 
 /**
  * Retrieve the source location of the given token.
  */
-clang_getTokenLocation :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXSourceLocation ---;
+getTokenLocation :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXSourceLocation ---;
 
 /**
  * Retrieve a source range that covers the given token.
  */
-clang_getTokenExtent :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXSourceRange ---;
+getTokenExtent :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXSourceRange ---;
 
 /**
  * Tokenize the source code described by the given range into raw
@@ -5787,24 +5787,24 @@ clang_getTokenExtent :: proc(TU: CXTranslationUnit, tk: CXToken) -> CXSourceRang
  *
  * \param Tokens this pointer will be set to point to the array of tokens
  * that occur within the given source range. The returned pointer must be
- * freed with clang_disposeTokens() before the translation unit is destroyed.
+ * freed with disposeTokens() before the translation unit is destroyed.
  *
  * \param NumTokens will be set to the number of tokens in the \c *Tokens
  * array.
  *
  */
-clang_tokenize :: proc (TU: CXTranslationUnit, Range: CXSourceRange, Tokens: ^^CXToken, NumTokens: ^c.uint) ---;
+tokenize :: proc (TU: CXTranslationUnit, Range: CXSourceRange, Tokens: ^^CXToken, NumTokens: ^c.uint) ---;
 
 /**
  * Annotate the given set of tokens by providing cursors for each token
  * that can be mapped to a specific entity within the abstract syntax tree.
  *
  * This token-annotation routine is equivalent to invoking
- * clang_getCursor() for the source locations of each of the
+ * getCursor() for the source locations of each of the
  * tokens. The cursors provided are filtered, so that only those
  * cursors that have a direct correspondence to the token are
  * accepted. For example, given a function call \c f(x),
- * clang_getCursor() would provide the following cursors:
+ * getCursor() would provide the following cursors:
  *
  *   * when the cursor is over the 'f', a DeclRefExpr cursor referring to 'f'.
  *   * when the cursor is over the '(' or the ')', a CallExpr referring to 'f'.
@@ -5825,12 +5825,12 @@ clang_tokenize :: proc (TU: CXTranslationUnit, Range: CXSourceRange, Tokens: ^^C
  * \param Cursors an array of \p NumTokens cursors, whose contents will be
  * replaced with the cursors corresponding to each token.
  */
-clang_annotateTokens :: proc(TU: CXTranslationUnit, Tokens: ^CXToken, NumTokens: c.uint, Cursors: ^CXCursor) ---;
+annotateTokens :: proc(TU: CXTranslationUnit, Tokens: ^CXToken, NumTokens: c.uint, Cursors: ^CXCursor) ---;
 
 /**
  * Free the given set of tokens.
  */
-clang_disposeTokens :: proc(TU: CXTranslationUnit, Tokens: ^CXToken, NumTokens: c.uint) ---;
+disposeTokens :: proc(TU: CXTranslationUnit, Tokens: ^CXToken, NumTokens: c.uint) ---;
 
 /**
  * @}
@@ -5846,13 +5846,13 @@ clang_disposeTokens :: proc(TU: CXTranslationUnit, Tokens: ^CXToken, NumTokens: 
  */
 
 /* for debug/testing */
-clang_getCursorKindSpelling :: proc(Kind: CXCursorKind) -> CXString ---;
+getCursorKindSpelling :: proc(Kind: CXCursorKind) -> CXString ---;
 
-clang_getDefinitionSpellingAndExtent :: proc(C: CXCursor, startBuf: ^cstring, endBuf: ^cstring, startLine: ^c.uint, startColumn: ^c.uint, endLine: ^c.uint, endColumn: ^c.uint) ---;
+getDefinitionSpellingAndExtent :: proc(C: CXCursor, startBuf: ^cstring, endBuf: ^cstring, startLine: ^c.uint, startColumn: ^c.uint, endLine: ^c.uint, endColumn: ^c.uint) ---;
 
-clang_enableStackTraces :: proc() ---;
+enableStackTraces :: proc() ---;
 
-clang_executeOnThread :: proc(fn: proc(rawptr), user_data: rawptr, stack_size: c.uint) ---;
+executeOnThread :: proc(fn: proc(rawptr), user_data: rawptr, stack_size: c.uint) ---;
 
 /**
  * @}
@@ -5879,7 +5879,7 @@ clang_executeOnThread :: proc(fn: proc(rawptr), user_data: rawptr, stack_size: c
  *
  * \returns the kind of the chunk at the index \c chunk_number.
  */
-clang_getCompletionChunkKind :: proc (completion_string: CXCompletionString, chunk_number: c.uint) -> CXCompletionChunkKind ---;
+getCompletionChunkKind :: proc (completion_string: CXCompletionString, chunk_number: c.uint) -> CXCompletionChunkKind ---;
 
 /**
  * Retrieve the text associated with a particular chunk within a
@@ -5891,7 +5891,7 @@ clang_getCompletionChunkKind :: proc (completion_string: CXCompletionString, chu
  *
  * \returns the text associated with the chunk at index \c chunk_number.
  */
-clang_getCompletionChunkText :: proc(completion_string: CXCompletionString, chunk_number: c.uint) ->  CXString ---;
+getCompletionChunkText :: proc(completion_string: CXCompletionString, chunk_number: c.uint) ->  CXString ---;
 
 /**
  * Retrieve the completion string associated with a particular chunk
@@ -5904,12 +5904,12 @@ clang_getCompletionChunkText :: proc(completion_string: CXCompletionString, chun
  * \returns the completion string associated with the chunk at index
  * \c chunk_number.
  */
-clang_getCompletionChunkCompletionString :: proc(completion_string: CXCompletionString, chunk_number: c.uint) -> CXCompletionString ---;
+getCompletionChunkCompletionString :: proc(completion_string: CXCompletionString, chunk_number: c.uint) -> CXCompletionString ---;
 
 /**
  * Retrieve the number of chunks in the given code-completion string.
  */
-clang_getNumCompletionChunks :: proc(completion_string: CXCompletionString) -> c.uint ---;
+getNumCompletionChunks :: proc(completion_string: CXCompletionString) -> c.uint ---;
 
 /**
  * Determine the priority of this code completion.
@@ -5923,7 +5923,7 @@ clang_getNumCompletionChunks :: proc(completion_string: CXCompletionString) -> c
  * \returns The priority of this completion string. Smaller values indicate
  * higher-priority (more likely) completions.
  */
-clang_getCompletionPriority :: proc(completion_string: CXCompletionString) -> c.uint ---;
+getCompletionPriority :: proc(completion_string: CXCompletionString) -> c.uint ---;
 
 /**
  * Determine the availability of the entity that this code-completion
@@ -5933,7 +5933,7 @@ clang_getCompletionPriority :: proc(completion_string: CXCompletionString) -> c.
  *
  * \returns The availability of the completion string.
  */
-clang_getCompletionAvailability :: proc(completion_string: CXCompletionString) -> CXAvailabilityKind ---;
+getCompletionAvailability :: proc(completion_string: CXCompletionString) -> CXAvailabilityKind ---;
 
 /**
  * Retrieve the number of annotations associated with the given
@@ -5944,7 +5944,7 @@ clang_getCompletionAvailability :: proc(completion_string: CXCompletionString) -
  * \returns the number of annotations associated with the given completion
  * string.
  */
-clang_getCompletionNumAnnotations :: proc(completion_string: CXCompletionString) -> c.uint ---;
+getCompletionNumAnnotations :: proc(completion_string: CXCompletionString) -> c.uint ---;
 
 /**
  * Retrieve the annotation associated with the given completion string.
@@ -5957,7 +5957,7 @@ clang_getCompletionNumAnnotations :: proc(completion_string: CXCompletionString)
  * \returns annotation string associated with the completion at index
  * \c annotation_number, or a NULL string if that annotation is not available.
  */
-clang_getCompletionAnnotation :: proc(completion_string: CXCompletionString, annotation_number: c.uint) ->  CXString ---;
+getCompletionAnnotation :: proc(completion_string: CXCompletionString, annotation_number: c.uint) ->  CXString ---;
 
 /**
  * Retrieve the parent context of the given completion string.
@@ -5975,13 +5975,13 @@ clang_getCompletionAnnotation :: proc(completion_string: CXCompletionString, ann
  * \returns The name of the completion parent, e.g., "NSObject" if
  * the completion string represents a method in the NSObject class.
  */
-clang_getCompletionParent :: proc(completion_string: CXCompletionString, kind: ^CXCursorKind) -> CXString ---;
+getCompletionParent :: proc(completion_string: CXCompletionString, kind: ^CXCursorKind) -> CXString ---;
 
 /**
  * Retrieve the brief documentation comment attached to the declaration
  * that corresponds to the given completion string.
  */
-clang_getCompletionBriefComment :: proc(completion_string: CXCompletionString) -> CXString ---;
+getCompletionBriefComment :: proc(completion_string: CXCompletionString) -> CXString ---;
 
 /**
  * Retrieve a completion string for an arbitrary declaration or macro
@@ -5993,7 +5993,7 @@ clang_getCompletionBriefComment :: proc(completion_string: CXCompletionString) -
  * definition cursors, or NULL for other kinds of cursors.
  */
 
-clang_getCursorCompletionString :: proc(cursor: CXCursor) -> CXCompletionString ---;
+getCursorCompletionString :: proc(cursor: CXCursor) -> CXCompletionString ---;
 
 /**
  * Retrieve the number of fix-its for the given completion index.
@@ -6008,13 +6008,13 @@ clang_getCursorCompletionString :: proc(cursor: CXCursor) -> CXCompletionString 
  * \return The number of fix-its which must be applied before the completion at
  * completion_index can be applied
  */
-clang_getCompletionNumFixIts :: proc(results: ^CXCodeCompleteResults, completion_index: c.uint) -> c.uint ---;
+getCompletionNumFixIts :: proc(results: ^CXCodeCompleteResults, completion_index: c.uint) -> c.uint ---;
 
 /**
  * Fix-its that *must* be applied before inserting the text for the
  * corresponding completion.
  *
- * By default, clang_codeCompleteAt() only returns completions with empty
+ * By default, codeCompleteAt() only returns completions with empty
  * fix-its. Extra completions with non-empty fix-its should be explicitly
  * requested by setting CXCodeComplete_IncludeCompletionsWithFixIts.
  *
@@ -6053,13 +6053,13 @@ clang_getCompletionNumFixIts :: proc(results: ^CXCodeCompleteResults, completion
  * \returns The fix-it string that must replace the code at replacement_range
  * before the completion at completion_index can be applied
  */
-clang_getCompletionFixIt :: proc(results: ^CXCodeCompleteResults, completion_index: c.uint, fixit_index: c.uint, replacement_range: CXSourceRange) -> CXString ---;
+getCompletionFixIt :: proc(results: ^CXCodeCompleteResults, completion_index: c.uint, fixit_index: c.uint, replacement_range: CXSourceRange) -> CXString ---;
 
 /**
  * Returns a default set of code-completion options that can be
- * passed to\c clang_codeCompleteAt().
+ * passed to\c codeCompleteAt().
  */
- clang_defaultCodeCompleteOptions :: proc() -> c.uint ---;
+ defaultCodeCompleteOptions :: proc() -> c.uint ---;
 
 /**
  * Perform code completion at a given location in a translation unit.
@@ -6121,16 +6121,16 @@ clang_getCompletionFixIt :: proc(results: ^CXCodeCompleteResults, completion_ind
  * \param options Extra options that control the behavior of code
  * completion, expressed as a bitwise OR of the enumerators of the
  * CXCodeComplete_Flags enumeration. The
- * \c clang_defaultCodeCompleteOptions() function returns a default set
+ * \c defaultCodeCompleteOptions() function returns a default set
  * of code-completion options.
  *
  * \returns If successful, a new \c CXCodeCompleteResults structure
  * containing code-completion results, which should eventually be
- * freed with \c clang_disposeCodeCompleteResults(). If code
+ * freed with \c disposeCodeCompleteResults(). If code
  * completion fails, returns NULL.
  */
 
-clang_codeCompleteAt :: proc(TU: CXTranslationUnit, complete_filename: cstring, complete_line: c.uint, complete_column: c.uint, unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint, options: c.uint) -> ^CXCodeCompleteResults ---;
+codeCompleteAt :: proc(TU: CXTranslationUnit, complete_filename: cstring, complete_line: c.uint, complete_column: c.uint, unsaved_files: ^CXUnsavedFile, num_unsaved_files: c.uint, options: c.uint) -> ^CXCodeCompleteResults ---;
 
 /**
  * Sort the code-completion results in case-insensitive alphabetical
@@ -6140,20 +6140,20 @@ clang_codeCompleteAt :: proc(TU: CXTranslationUnit, complete_filename: cstring, 
  * \param NumResults The number of results in \p Results.
  */
 
-clang_sortCodeCompletionResults :: proc(Results: ^CXCompletionResult, NumResults: c.uint) ---;
+sortCodeCompletionResults :: proc(Results: ^CXCompletionResult, NumResults: c.uint) ---;
 
 /**
  * Free the given set of code-completion results.
  */
 
-clang_disposeCodeCompleteResults :: proc(Results: ^CXCodeCompleteResults) ---;
+disposeCodeCompleteResults :: proc(Results: ^CXCodeCompleteResults) ---;
 
 /**
  * Determine the number of diagnostics produced prior to the
  * location where code completion was performed.
  */
 
-clang_codeCompleteGetNumDiagnostics :: proc(Results: CXCodeCompleteResults) -> c.uint ---;
+codeCompleteGetNumDiagnostics :: proc(Results: CXCodeCompleteResults) -> c.uint ---;
 
 /**
  * Retrieve a diagnostic associated with the given code completion.
@@ -6162,10 +6162,10 @@ clang_codeCompleteGetNumDiagnostics :: proc(Results: CXCodeCompleteResults) -> c
  * \param Index the zero-based diagnostic number to retrieve.
  *
  * \returns the requested diagnostic. This diagnostic must be freed
- * via a call to \c clang_disposeDiagnostic().
+ * via a call to \c disposeDiagnostic().
  */
 
-clang_codeCompleteGetDiagnostic :: proc(Results: ^CXCodeCompleteResults, Index: c.uint) -> CXDiagnostic ---; 
+codeCompleteGetDiagnostic :: proc(Results: ^CXCodeCompleteResults, Index: c.uint) -> CXDiagnostic ---; 
 
 /**
  * Determines what completions are appropriate for the context
@@ -6176,7 +6176,7 @@ clang_codeCompleteGetDiagnostic :: proc(Results: ^CXCodeCompleteResults, Index: 
  * \returns the kinds of completions that are appropriate for use
  * along with the given code completion results.
  */
-clang_codeCompleteGetContexts :: proc(Results: ^CXCodeCompleteResults) -> u64 ---;
+codeCompleteGetContexts :: proc(Results: ^CXCodeCompleteResults) -> u64 ---;
 
 /**
  * Returns the cursor kind for the container for the current code
@@ -6194,7 +6194,7 @@ clang_codeCompleteGetContexts :: proc(Results: ^CXCodeCompleteResults) -> u64 --
  * \returns the container kind, or CXCursor_InvalidCode if there is not a
  * container
  */
-clang_codeCompleteGetContainerKind :: proc(Results: ^CXCodeCompleteResults,
+codeCompleteGetContainerKind :: proc(Results: ^CXCodeCompleteResults,
                                    IsIncomplete: ^c.uint) -> CXCursorKind ---;
 
 /**
@@ -6207,7 +6207,7 @@ clang_codeCompleteGetContainerKind :: proc(Results: ^CXCodeCompleteResults,
  * \returns the USR for the container
  */
 
-clang_codeCompleteGetContainerUSR :: proc(Results: ^CXCodeCompleteResults) -> CXString ---;
+codeCompleteGetContainerUSR :: proc(Results: ^CXCodeCompleteResults) -> CXString ---;
 
 /**
  * Returns the currently-entered selector for an Objective-C message
@@ -6221,7 +6221,7 @@ clang_codeCompleteGetContainerUSR :: proc(Results: ^CXCodeCompleteResults) -> CX
  * for an Objective-C message send.
  */
 
-clang_codeCompleteGetObjCSelector :: proc(Results: ^CXCodeCompleteResults) -> CXString ---;
+codeCompleteGetObjCSelector :: proc(Results: ^CXCodeCompleteResults) -> CXString ---;
 
 /**
  * @}
@@ -6237,7 +6237,7 @@ clang_codeCompleteGetObjCSelector :: proc(Results: ^CXCodeCompleteResults) -> CX
  * Return a version string, suitable for showing to a user, but not
  *        intended to be parsed (the format is not guaranteed to be stable).
  */
-clang_getClangVersion :: proc() ->  CXString ---;
+getClangVersion :: proc() ->  CXString ---;
 
 /**
  * Enable/disable crash recovery.
@@ -6245,7 +6245,7 @@ clang_getClangVersion :: proc() ->  CXString ---;
  * \param isEnabled Flag to indicate if crash recovery is enabled.  A non-zero
  *        value enables crash recovery, while 0 disables it.
  */
-clang_toggleCrashRecovery :: proc(isEnabled: c.uint) ---;
+toggleCrashRecovery :: proc(isEnabled: c.uint) ---;
 
 
 /**
@@ -6254,7 +6254,7 @@ clang_toggleCrashRecovery :: proc(isEnabled: c.uint) ---;
  *   file.  This does not include headers included by the PCH file (unless one
  *   is inspecting the inclusions in the PCH file itself).
  */
-clang_getInclusions :: proc(tu: CXTranslationUnit, visitor: CXInclusionVisitor, client_data: CXClientData) ---;
+getInclusions :: proc(tu: CXTranslationUnit, visitor: CXInclusionVisitor, client_data: CXClientData) ---;
 
 /**
  * If cursor is a statement declaration tries to evaluate the
@@ -6262,57 +6262,57 @@ clang_getInclusions :: proc(tu: CXTranslationUnit, visitor: CXInclusionVisitor, 
  * into its corresponding type.
  * If it's an expression, tries to evaluate the expression.
  */
-clang_Cursor_Evaluate :: proc(C: CXCursor) -> CXEvalResult ---;
+Cursor_Evaluate :: proc(C: CXCursor) -> CXEvalResult ---;
 
 /**
  * Returns the kind of the evaluated result.
  */
-clang_EvalResult_getKind :: proc(E: CXEvalResult) -> CXEvalResultKind ---;
+EvalResult_getKind :: proc(E: CXEvalResult) -> CXEvalResultKind ---;
 
 /**
  * Returns the evaluation result as integer if the
  * kind is Int.
  */
-clang_EvalResult_getAsInt :: proc(E: CXEvalResult) -> c.int ---;
+EvalResult_getAsInt :: proc(E: CXEvalResult) -> c.int ---;
 
 /**
  * Returns the evaluation result as a long long integer if the
  * kind is Int. This prevents overflows that may happen if the result is
- * returned with clang_EvalResult_getAsInt.
+ * returned with EvalResult_getAsInt.
  */
-clang_EvalResult_getAsLongLong :: proc(E: CXEvalResult) -> i64 ---;
+EvalResult_getAsLongLong :: proc(E: CXEvalResult) -> i64 ---;
 
 /**
  * Returns a non-zero value if the kind is Int and the evaluation
  * result resulted in an unsigned integer.
  */
-clang_EvalResult_isUnsignedInt :: proc(E: CXEvalResult) -> i64 ---;
+EvalResult_isUnsignedInt :: proc(E: CXEvalResult) -> i64 ---;
 
 /**
  * Returns the evaluation result as an unsigned integer if
- * the kind is Int and clang_EvalResult_isUnsignedInt is non-zero.
+ * the kind is Int and EvalResult_isUnsignedInt is non-zero.
  */
 
-clang_EvalResult_getAsUnsigned :: proc(E: CXEvalResult) -> u64 ---;
+EvalResult_getAsUnsigned :: proc(E: CXEvalResult) -> u64 ---;
 
 /**
  * Returns the evaluation result as double if the
  * kind is double.
  */
-clang_EvalResult_getAsDouble :: proc(E: CXEvalResult) -> f64 ---;
+EvalResult_getAsDouble :: proc(E: CXEvalResult) -> f64 ---;
 
 /**
  * Returns the evaluation result as a constant string if the
  * kind is other than Int or float. User must not free this pointer,
- * instead call clang_EvalResult_dispose on the CXEvalResult returned
- * by clang_Cursor_Evaluate.
+ * instead call EvalResult_dispose on the CXEvalResult returned
+ * by Cursor_Evaluate.
  */
-clang_EvalResult_getAsStr :: proc(E: CXEvalResult) -> cstring ---;
+EvalResult_getAsStr :: proc(E: CXEvalResult) -> cstring ---;
 
 /**
  * Disposes the created Eval memory.
  */
-clang_EvalResult_dispose :: proc(E: CXEvalResult) ---;
+EvalResult_dispose :: proc(E: CXEvalResult) ---;
 /**
  * @}
  */
@@ -6328,9 +6328,9 @@ clang_EvalResult_dispose :: proc(E: CXEvalResult) ---;
  * \param path the path that contains metadata about remappings.
  *
  * \returns the requested remapping. This remapping must be freed
- * via a call to \c clang_remap_dispose(). Can return NULL if an error occurred.
+ * via a call to \c remap_dispose(). Can return NULL if an error occurred.
  */
-clang_getRemappings :: proc(path: cstring) -> CXRemapping ---;
+getRemappings :: proc(path: cstring) -> CXRemapping ---;
 
 /**
  * Retrieve a remapping.
@@ -6340,14 +6340,14 @@ clang_getRemappings :: proc(path: cstring) -> CXRemapping ---;
  * \param numFiles number of file paths.
  *
  * \returns the requested remapping. This remapping must be freed
- * via a call to \c clang_remap_dispose(). Can return NULL if an error occurred.
+ * via a call to \c remap_dispose(). Can return NULL if an error occurred.
  */
-clang_getRemappingsFromFileList :: proc(filePaths: ^cstring, numFiles: c.uint) -> CXRemapping ---;
+getRemappingsFromFileList :: proc(filePaths: ^cstring, numFiles: c.uint) -> CXRemapping ---;
 
 /**
  * Determine the number of remappings.
  */
-clang_remap_getNumFiles :: proc(RM: CXRemapping) -> c.uint ---;
+remap_getNumFiles :: proc(RM: CXRemapping) -> c.uint ---;
 
 /**
  * Get the original and the associated filename from the remapping.
@@ -6357,12 +6357,12 @@ clang_remap_getNumFiles :: proc(RM: CXRemapping) -> c.uint ---;
  * \param transformed If non-NULL, will be set to the filename that the original
  * is associated with.
  */
-clang_remap_getFilenames :: proc(RM: CXRemapping, index: c.uint, original: ^CXString, transformed: ^CXString) ---;
+remap_getFilenames :: proc(RM: CXRemapping, index: c.uint, original: ^CXString, transformed: ^CXString) ---;
 
 /**
  * Dispose the remapping.
  */
-clang_remap_dispose :: proc(RM: CXRemapping) ---;
+remap_dispose :: proc(RM: CXRemapping) ---;
 
 /**
  * @}
@@ -6387,7 +6387,7 @@ clang_remap_dispose :: proc(RM: CXRemapping) ---;
  *
  * \returns one of the CXResult enumerators.
  */
-clang_findReferencesInFile :: proc(cursor: CXCursor, file: CXFile, visitor: CXCursorAndRangeVisitor) -> CXResult ---;
+findReferencesInFile :: proc(cursor: CXCursor, file: CXFile, visitor: CXCursorAndRangeVisitor) -> CXResult ---;
 
 /**
  * Find #import/#include directives in a specific file.
@@ -6401,40 +6401,40 @@ clang_findReferencesInFile :: proc(cursor: CXCursor, file: CXFile, visitor: CXCu
  *
  * \returns one of the CXResult enumerators.
  */
-clang_findIncludesInFile :: proc(TU: CXTranslationUnit, file: CXFile, visitor: CXCursorAndRangeVisitor) -> CXResult ---;
+findIncludesInFile :: proc(TU: CXTranslationUnit, file: CXFile, visitor: CXCursorAndRangeVisitor) -> CXResult ---;
 
-clang_index_isEntityObjCContainerKind  :: proc (kind: CXIdxEntityKind) -> c.int ---;
-clang_index_getObjCContainerDeclInfo   :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCContainerDeclInfo ---;
-clang_index_getObjCInterfaceDeclInfo   :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCInterfaceDeclInfo ---;
-clang_index_getObjCCategoryDeclInfo    :: proc (info: ^CXIdxDeclInfo) -> CXIdxObjCCategoryDeclInfo ---;
-clang_index_getObjCProtocolRefListInfo :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCProtocolRefListInfo ---;
-clang_index_getObjCPropertyDeclInfo    :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCPropertyDeclInfo ---;
+index_isEntityObjCContainerKind  :: proc (kind: CXIdxEntityKind) -> c.int ---;
+index_getObjCContainerDeclInfo   :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCContainerDeclInfo ---;
+index_getObjCInterfaceDeclInfo   :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCInterfaceDeclInfo ---;
+index_getObjCCategoryDeclInfo    :: proc (info: ^CXIdxDeclInfo) -> CXIdxObjCCategoryDeclInfo ---;
+index_getObjCProtocolRefListInfo :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCProtocolRefListInfo ---;
+index_getObjCPropertyDeclInfo    :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxObjCPropertyDeclInfo ---;
 
-clang_index_getIBOutletCollectionAttrInfo :: proc(ainfo: ^CXIdxAttrInfo) -> ^CXIdxIBOutletCollectionAttrInfo ---; 
+index_getIBOutletCollectionAttrInfo :: proc(ainfo: ^CXIdxAttrInfo) -> ^CXIdxIBOutletCollectionAttrInfo ---; 
 
-clang_index_getCXXClassDeclInfo :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxCXXClassDeclInfo ---;
+index_getCXXClassDeclInfo :: proc (info: ^CXIdxDeclInfo) -> ^CXIdxCXXClassDeclInfo ---;
 
 /**
  * For retrieving a custom CXIdxClientContainer attached to a
  * container.
  */
-clang_index_getClientContainer :: proc (container: ^CXIdxContainerInfo) ->  CXIdxClientContainer ---;
+index_getClientContainer :: proc (container: ^CXIdxContainerInfo) ->  CXIdxClientContainer ---;
 
 /**
  * For setting a custom CXIdxClientContainer attached to a
  * container.
  */
-clang_index_setClientContainer :: proc(info: ^CXIdxContainerInfo,container: CXIdxClientContainer) ---;
+index_setClientContainer :: proc(info: ^CXIdxContainerInfo,container: CXIdxClientContainer) ---;
 
 /**
  * For retrieving a custom CXIdxClientEntity attached to an entity.
  */
-clang_index_getClientEntity :: proc(ENT: ^CXIdxEntityInfo) -> CXIdxClientEntity ---;
+index_getClientEntity :: proc(ENT: ^CXIdxEntityInfo) -> CXIdxClientEntity ---;
 
 /**
  * For setting a custom CXIdxClientEntity attached to an entity.
  */
-clang_index_setClientEntity :: proc(ENT: ^CXIdxEntityInfo, ENTI: CXIdxClientEntity) ---;
+index_setClientEntity :: proc(ENT: ^CXIdxEntityInfo, ENTI: CXIdxClientEntity) ---;
 
 /**
  * An indexing action/session, to be applied to one or multiple
@@ -6442,7 +6442,7 @@ clang_index_setClientEntity :: proc(ENT: ^CXIdxEntityInfo, ENTI: CXIdxClientEnti
  *
  * \param CIdx The index object with which the index action will be associated.
  */
-clang_IndexAction_create :: proc(CIdx: CXIndex) ->  CXIndexAction ---;
+IndexAction_create :: proc(CIdx: CXIndex) ->  CXIndexAction ---;
 
 /**
  * Destroy the given index action.
@@ -6450,7 +6450,7 @@ clang_IndexAction_create :: proc(CIdx: CXIndex) ->  CXIndexAction ---;
  * The index action must not be destroyed until all of the translation units
  * created within that index action have been destroyed.
  */
-clang_IndexAction_dispose :: proc(action: CXIndexAction) ---;
+IndexAction_dispose :: proc(action: CXIndexAction) ---;
 
 /**
  * Index the given source file and the translation unit corresponding
@@ -6475,9 +6475,9 @@ clang_IndexAction_dispose :: proc(action: CXIndexAction) ---;
  * recover.  If there is a failure from which there is no recovery, returns
  * a non-zero \c CXErrorCode.
  *
- * The rest of the parameters are the same as #clang_parseTranslationUnit.
+ * The rest of the parameters are the same as #parseTranslationUnit.
  */
-clang_indexSourceFile :: proc(
+indexSourceFile :: proc(
     action: CXIndexAction, client_data: CXClientData, index_callbacks: IndexerCallbacks,
     index_callbacks_size: c.uint, index_options: c.uint,
     source_filename: cstring, command_line_args: ^cstring,
@@ -6485,11 +6485,11 @@ clang_indexSourceFile :: proc(
     num_unsaved_files: c.uint, out_TU: ^CXTranslationUnit, TU_options: c.uint) -> c.int ---;
 
 /**
- * Same as clang_indexSourceFile but requires a full command line
+ * Same as indexSourceFile but requires a full command line
  * for \c command_line_args including argv[0]. This is useful if the standard
  * library paths are relative to the binary.
  */
-clang_indexSourceFileFullArgv :: proc(action: CXIndexAction, client_data: CXClientData, index_callbacks: IndexerCallbacks,
+indexSourceFileFullArgv :: proc(action: CXIndexAction, client_data: CXClientData, index_callbacks: IndexerCallbacks,
     index_callbacks_size: c.uint, index_options: c.uint,
     source_filename: cstring, command_line_args: ^cstring,
     num_command_line_args: c.int,  unsaved_files: ^CXUnsavedFile,
@@ -6506,12 +6506,12 @@ clang_indexSourceFileFullArgv :: proc(action: CXIndexAction, client_data: CXClie
  *   -Declaration/reference callbacks invocations
  *   -Diagnostic callback invocations
  *
- * The parameters are the same as #clang_indexSourceFile.
+ * The parameters are the same as #indexSourceFile.
  *
  * \returns If there is a failure from which there is no recovery, returns
  * non-zero, otherwise returns 0.
  */
-clang_indexTranslationUnit :: proc(
+indexTranslationUnit :: proc(
     action: CXIndexAction, client_data: CXClientData, index_callbacks: ^IndexerCallbacks,
     index_callbacks_size: c.uint, index_options: c.uint, tu: CXTranslationUnit) -> c.int ---;
 
@@ -6523,7 +6523,7 @@ clang_indexTranslationUnit :: proc(
  * location of the macro expansion and if it refers into a macro argument
  * retrieves the location of the argument.
  */
-clang_indexLoc_getFileLocation :: proc (loc: CXIdxLoc,
+indexLoc_getFileLocation :: proc (loc: CXIdxLoc,
                                         indexFile: CXIdxClientFile,
                                         file: ^CXFile, 
                                         line: ^c.uint,
@@ -6533,7 +6533,7 @@ clang_indexLoc_getFileLocation :: proc (loc: CXIdxLoc,
 /**
  * Retrieve the CXSourceLocation represented by the given CXIdxLoc.
  */
-clang_indexLoc_getCXSourceLocation :: proc(loc: CXIdxLoc) -> CXSourceLocation ---;
+indexLoc_getCXSourceLocation :: proc(loc: CXIdxLoc) -> CXSourceLocation ---;
 
 /**
  * Visit the fields of a particular type.
@@ -6554,7 +6554,7 @@ clang_indexLoc_getCXSourceLocation :: proc(loc: CXIdxLoc) -> CXSourceLocation --
  * \returns a non-zero value if the traversal was terminated
  * prematurely by the visitor returning \c CXFieldVisit_Break.
  */
-clang_Type_visitFields :: proc(T: CXType, visitor: CXFieldVisitor, client_data: CXClientData) -> c.uint ---;
+Type_visitFields :: proc(T: CXType, visitor: CXFieldVisitor, client_data: CXClientData) -> c.uint ---;
 
 /**
  * @}
