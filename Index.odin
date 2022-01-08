@@ -3128,7 +3128,7 @@ CXSourceRangeList :: struct {
  * The visitor should return one of the \c CXChildVisitResult values
  * to direct visitCursorChildren().
  */
-CXCursorVisitor :: #type proc (cursor: CXCursor, parent: CXCursor, client_data: CXClientData) -> CXChildVisitResult;
+CXCursorVisitor :: #type proc "c" (cursor: CXCursor, parent: CXCursor, client_data: CXClientData) -> CXChildVisitResult;
 
 /**
  * Visitor invoked for each field found by a traversal.
@@ -3141,7 +3141,7 @@ CXCursorVisitor :: #type proc (cursor: CXCursor, parent: CXCursor, client_data: 
  * The visitor should return one of the \c CXVisitorResult values
  * to direct \c Type_visitFields.
  */
-CXFieldVisitor :: #type proc(C: CXCursor, client_data: CXClientData) -> CXVisitorResult; 
+CXFieldVisitor :: #type proc "c" (C: CXCursor, client_data: CXClientData) -> CXVisitorResult; 
 
 /**
  * Visitor invoked for each file in a translation unit
@@ -3154,7 +3154,7 @@ CXFieldVisitor :: #type proc(C: CXCursor, client_data: CXClientData) -> CXVisito
  * array is sorted in order of immediate inclusion.  For example,
  * the first element refers to the location that included 'included_file'.
  */
-CXInclusionVisitor :: #type proc (included_file: CXFile,
+CXInclusionVisitor :: #type proc "c" (included_file: CXFile,
                                   inclusion_stack: CXSourceLocation,
                                   include_len: c.uint,
                                   client_data: CXClientData);
