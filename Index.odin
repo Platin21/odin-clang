@@ -4888,7 +4888,7 @@ getCursorExceptionSpecificationType :: proc(C: CXCursor) -> c.int ---;
  * Return 1 if the CXType is a POD (plain old data) type, and 0
  *  otherwise.
  */
-isPODType :: proc(T: CXType) -> c.uint ---;
+isPODType :: proc(T: CXType) -> bool ---;
 
 /**
  * Return the element type of an array, complex, or vector type.
