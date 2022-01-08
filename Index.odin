@@ -69,7 +69,7 @@ CXTranslationUnit :: distinct rawptr;
  * Opaque pointer representing client data that will be passed through
  * to various callbacks and visitors.
  */
-CXClientData :: distinct rawptr;
+CXClientData :: rawptr;
 
 /**
  * A particular source file that is part of a translation unit.
